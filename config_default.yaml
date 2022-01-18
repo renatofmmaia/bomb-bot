@@ -1,0 +1,8 @@
+time_intervals:
+    
+    # [en_US] Time interval to update heroes position in the map,
+    # Default value (in minutes): 3
+    #
+    # [pt_BR] Intervalo de tempo para atualizar a posição dos heróis no mapa
+    # Valor padrão (em minutos): 5
+    heroes_refresh_position: 1
