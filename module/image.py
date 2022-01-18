@@ -30,6 +30,4 @@ class Image:
         for file in file_names:
             targets[replace(file, '.png')] = cv2.imread(path + file)
 
-        TARGETS = targets
-        
-        return targets
+        Image.TARGETS = targets

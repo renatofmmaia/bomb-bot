@@ -9,8 +9,9 @@ def main(config_file):
     with open(config_file, 'r') as stream:  
         config = yaml.safe_load(stream)
     
-    image_targets = Image.load_targets()
-    bomb_crypto_managers = create_bombcrypto_managers(image_targets)
+    Image.load_targets()
+    print(Image.TARGETS, '<<')
+    bomb_crypto_managers = create_bombcrypto_managers()
     print(bomb_crypto_managers)
     
     # while True:
