@@ -1,10 +1,16 @@
 import subprocess
 import sys
+
 from module.platform import Platform, PlatformEnum
 
 
 def get_windows():
-    return _get_linux_bombcrypto_windows() if Platform().get_platform() == PlatformEnum.LINUX else _get_bombcrypto_windows()
+    return (
+        _get_linux_bombcrypto_windows()
+        if Platform().get_platform() == PlatformEnum.LINUX
+        else _get_bombcrypto_windows()
+    )
+
 
 def _get_linux_bombcrypto_windows():
     stdout = (
