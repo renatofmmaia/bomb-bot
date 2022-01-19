@@ -32,6 +32,25 @@ def click_one_target(target: str):
     
     return click_count
 
+def click_when_target_appears(target: str, time_beteween: float = 0.5, timeout: float = 10):
+    """ Click in a target when it appears.
+        It will check for target every `time_beteween` seconds.
+        After timeout seconds it will return 0 if no target was found.
+        Returns 1 if target was found.
+    """
+    start_time = time.time()
+    count = 1
+    while True:
+        if time.time() - start_time > timeout:
+            return 0
+        clicks = click_one_target(target)
+        logger(f"Try: {count}; clicks: {clicks}")
+        count +=1
+        if clicks > 0:
+            return 1
+        time.sleep(time_beteween)
+
+
 def randomize_values(x, w, y, h):
     x_rand = randomize_int(x, w, 0.20)
     y_rand = randomize_int(y, h, 0.20)

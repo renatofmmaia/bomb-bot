@@ -90,11 +90,9 @@ class BombScreen:
         rectangles, weights = cv2.groupRectangles(rectangles, 1, 0.2)
         return rectangles
 
-    def click_if_image_found(img: str, delay: int = 8):
+    def click_if_image_found(img: str, timeout: float = 8):
         # logger(None, progress_indicator=True)
-        click_result = click_one_target(img)
-        time.sleep(delay)
-        return click_result
+        return click_when_target_appears(img, timeout=timeout)
         
     def login():
         pass
