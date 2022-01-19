@@ -3,17 +3,17 @@ import sys
 import yaml
 
 from module.bombScreen import BombScreen
+from module.config import Config
 from module.hero import Hero
 from module.image import Image
 from module.manager import create_bombcrypto_managers
 from module.platform import Platform, PlatformEnum
-from module.config import Config
 
 
 def main(config_file):
     Config.load_config(config_file)
     Image.load_targets()
-   
+
     # print(Image.TARGETS, '<<')
 
     # print(bomb_crypto_managers)

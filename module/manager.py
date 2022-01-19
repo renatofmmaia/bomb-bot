@@ -2,10 +2,10 @@ import time
 from enum import Enum
 
 from .bombScreen import BombScreen
+from .hero import Hero
 from .image import Image
 from .logger import logger
 from .window import get_windows
-from .hero import Hero
 
 
 def create_bombcrypto_managers():

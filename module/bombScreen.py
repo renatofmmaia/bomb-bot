@@ -7,10 +7,10 @@ import PIL.Image
 import pyautogui
 from cv2 import cv2
 
+from .config import Config
 from .image import Image
 from .logger import logger
 from .utils import *
-from .config import Config
 
 
 class BombScreenEnum(Enum):
@@ -63,7 +63,7 @@ class BombScreen:
         return screen_name
 
     def check_image_on_screen(target, img=None):
-        threshold = Config.PROPERTIES['threshold']['default']
+        threshold = Config.PROPERTIES["threshold"]["default"]
         result = cv2.matchTemplate(img, target, cv2.TM_CCOEFF_NORMED)
         w = target.shape[1]
         h = target.shape[0]
@@ -79,8 +79,8 @@ class BombScreen:
         return rectangles
 
     def target_image_positions(target, img=None):
-        threshold = Config.PROPERTIES['threshold']['default']
-        
+        threshold = Config.PROPERTIES["threshold"]["default"]
+
         if img is None:
             img = BombScreen.print_screen()
 
@@ -101,7 +101,7 @@ class BombScreen:
     def click_if_image_found(img, name=None, timeout=3):
         logger(None, progress_indicator=True)
         start = time.time()
-        
+
         while True:
             matches = BombScreen.target_image_positions(img)
             if len(matches) == 0:
