@@ -1,9 +1,7 @@
 from .logger import logger
-
+from .config import Config
 
 class Hero:
-    def __init__(self, window) -> None:
-        self.window = window
 
     def who_needs_work():
-        logger("🏢 Searching heroes to work")
+        logger("🏢 Searching heroes to work, using config(hero_work_mod): " + Config.PROPERTIES["hero_work_mod"])

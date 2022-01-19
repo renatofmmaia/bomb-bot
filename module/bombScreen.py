@@ -11,6 +11,7 @@ from .config import Config
 from .image import Image
 from .logger import logger
 from .utils import *
+from .mouse import *
 
 
 class BombScreenEnum(Enum):
@@ -89,30 +90,12 @@ class BombScreen:
         rectangles, weights = cv2.groupRectangles(rectangles, 1, 0.2)
         return rectangles
 
-    def click_if_image_found(img, name=None, timeout=3):
-        logger(None, progress_indicator=True)
-        start = time.time()
-
-        while True:
-            matches = BombScreen.target_image_positions(img)
-            if len(matches) == 0:
-                hast_timed_out = time.time() - start > timeout
-                if hast_timed_out:
-                    if not name is None:
-                        pass
-
-                    return False
-
-                continue
-
-            x, y, w, h = matches[0]
-            pos_click_x = x + w / 2
-            pos_click_y = y + h / 2
-
-            BombScreen.click_image_randomness(pos_click_x, pos_click_y, 1)
-            pyautogui.click()
-            return True
-
+    def click_if_image_found(img: str, delay: int = 8):
+        # logger(None, progress_indicator=True)
+        click_result = click_one_target(img)
+        time.sleep(delay)
+        return click_result
+        
     def login():
         pass
 

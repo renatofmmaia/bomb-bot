@@ -1,11 +1,13 @@
 import time
 from enum import Enum
 
-from .bombScreen import BombScreen
+from .bombScreen import BombScreen, BombScreenEnum
 from .hero import Hero
 from .image import Image
 from .logger import logger
 from .window import get_windows
+from .config import Config
+from .utils import *
 
 
 def create_bombcrypto_managers():
@@ -33,32 +35,39 @@ class BombcryptoManager:
         print(BombScreen.get_currentScreen(self.image_targets))
 
     def login_action(self):
-        login_attempts = 3
         logger("😿 Performing login action")
+        
+        login_attepmts = Config.PROPERTIES["screen"]["number_login_attempts"]
+        
+        logged = False
+        for i in range(login_attepmts):
+            
+            if BombScreen.get_current_screen() != BombScreenEnum.LOGIN.value:
+                refresh_page()
+                
+            logger("🎉 Login page detected.")
 
-        # if login_attempts > 3:
-        #     logger('🔃 Too many login attempts, refreshing')
-        #     login_attempts = 0
-        #     pyautogui.hotkey('ctrl','f5')
-        #     return
-
-        if BombScreen.click_if_image_found(
-            Image.TARGETS["button_connect_wallet"],
-            name="connectWalletBtn",
-            timeout=10,
-        ):
-            logger("🎉 Connect wallet button detected.")
-            login_attempts = login_attempts + 1
-
-        if BombScreen.click_if_image_found(
-            Image.TARGETS["button_connect_wallet_sign"],
-            name="sign button",
-            timeout=8,
-        ):
-            logger("🎉 Signin wallet button detected.")
-            login_attempts = login_attempts + 1
-
-        logger("🎉 Login successfully!")
+            logger("🎉 Clicking in wallet button...")
+            if not BombScreen.click_if_image_found("button_connect_wallet"):
+                refresh_page()
+                continue
+            
+            logger("🎉 Clicking in sigin wallet button...")
+            if not BombScreen.click_if_image_found("button_connect_wallet_sign", 10):
+                refresh_page()
+                continue
+            
+            if BombScreen.get_current_screen() != BombScreenEnum.HOME.value:
+                logger("🎉 Failed to login, restart proccess...")
+                continue
+            else:    
+                logger("🎉 Login successfully!")
+                logged = True
+                break
+            
+        return logged
+       
 
     def hero_check_work():
         Hero.who_needs_work()
+        return True

@@ -1,4 +1,6 @@
 import time
+import pyautogui
+
 from random import random ,uniform
 
 
@@ -51,5 +53,8 @@ def randomize_int(loc: float, width: float, safe_factor=0):
         random integer
     """
     return round(randomize(loc, width, safe_factor))
-    
+
+def refresh_page(delay:int = 5):
+    pyautogui.hotkey('ctrl','f5')
+    time.sleep(5)
 

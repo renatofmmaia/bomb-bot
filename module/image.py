@@ -7,10 +7,13 @@ from cv2 import cv2
 
 from .logger import logger
 from .utils import *
+from .config import Config
 
 
 class Image:
     TARGETS = []
+    MONITOR_LEFT = None
+    MONITOR_TOP = None
 
     @staticmethod
     def load_targets():
@@ -28,6 +31,8 @@ class Image:
         with mss.mss() as sct:
             monitor = sct.monitors[0]
             sct_img = np.array(sct.grab(monitor))
+            Image.MONITOR_LEFT = monitor["left"]
+            Image.MONITOR_TOP = monitor["top"]
             return sct_img[:, :, :3]
 
     @staticmethod
@@ -38,6 +43,10 @@ class Image:
     
     @staticmethod
     def get_one_target_position(target:str, threshold:float=0.8):
+        threshold_config = Config.PROPERTIES["threshold"]["default"]
+        if(threshold_config):
+            threshold = threshold_config
+            
         target_img = Image.TARGETS[target]
         screen_img = Image.screen()
         result = cv2.matchTemplate(screen_img, target_img, cv2.TM_CCOEFF_NORMED)
@@ -45,9 +54,12 @@ class Image:
         if result.max() < threshold:
             raise Exception(f"{target} not found")
             
-        width, hight = target_img.shape[:2]
         yloc, xloc = np.where(result == result.max())
-        return xloc, yloc, width, hight
+        xloc += Image.MONITOR_LEFT
+        yloc += Image.MONITOR_TOP
+        hight, width = target_img.shape[:2]
+        
+        return xloc[0], yloc[0], width, hight
 
 
 

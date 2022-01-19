@@ -21,8 +21,8 @@ def click_one_target(target: str):
     """click in a target. Returns number of clicks"""
     click_count = 0
     try:
-        x, y, w, h = Image.get_one_target_position(target)
-        x, y, move_duration, click_duration, time_between  = randomize_values(x, y, w, h)
+        x_left, y_top, w, h = Image.get_one_target_position(target)
+        x, y, move_duration, click_duration, time_between  = randomize_values(x_left, w, y_top, h)
         pyautogui.moveTo(x, y, duration=move_duration, tween=pyautogui.easeOutQuad)
         time.sleep(time_between)
         pyautogui.click(duration=click_duration)

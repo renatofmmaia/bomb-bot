@@ -14,16 +14,14 @@ def main(config_file):
     Config.load_config(config_file)
     Image.load_targets()
 
-    # print(Image.TARGETS, '<<')
-
-    # print(bomb_crypto_managers)
-    # BombScreen.get_current_screen(Image.TARGETS)
-
     bomb_crypto_managers = create_bombcrypto_managers()
     # while True:
     for manager in bomb_crypto_managers:
         with manager:
-            manager.login_action()
+            print(manager.login_action())
+        
+        # with manager:
+        #     print(manager.hero_check_work())
 
 
 if __name__ == "__main__":
