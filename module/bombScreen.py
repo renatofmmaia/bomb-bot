@@ -21,15 +21,6 @@ class BombScreenEnum(Enum):
 
 
 class BombScreen:
-    def print_screen():
-        with mss.mss() as sct:
-            monitor = sct.monitors[0]
-            sct_img = np.array(sct.grab(monitor))
-            # The screen part to capture
-            # monitor = {"top": 160, "left": 160, "width": 1000, "height": 135}
-            # PIL.Image.fromarray(sct_img).show()
-            # Grab the data
-            return sct_img[:, :, :3]
 
     def click_image_randomness(x, y, t):
         with mss.mss() as sct:
@@ -49,7 +40,7 @@ class BombScreen:
             BombScreenEnum.TREASURE_HUNT.value: Image.TARGETS["identify_treasure_hunt"],
         }
         max_value = 0
-        img = BombScreen.print_screen()
+        img = Image.screen()
         screen_name = None
 
         for name, target_img in targets.items():
@@ -82,7 +73,7 @@ class BombScreen:
         threshold = Config.PROPERTIES["threshold"]["default"]
 
         if img is None:
-            img = BombScreen.print_screen()
+            img = Image.screen()
 
         result = cv2.matchTemplate(img, target, cv2.TM_CCOEFF_NORMED)
         w = target.shape[1]

@@ -1,5 +1,5 @@
 import time
-from random import random
+from random import random ,uniform
 
 
 def date_formatted(format="%Y-%m-%d %H:%M:%S"):
@@ -24,3 +24,32 @@ def randomness_number(n, randomn_factor_size=None):
     randomized_n = int(without_average_random_factor + random_factor)
 
     return int(randomized_n)
+
+def randomize(loc: float, width: float, safe_factor=0):
+    """randomize a number between loc and width with a safe distance (safe_factor*width).
+
+    Returns
+    -------
+    float
+        random float
+    """
+    if safe_factor > 0.5:
+        raise ValueError("safe_factor must be between 0 and 0.5")
+
+    safe_dist = width * safe_factor
+    min_value = loc + safe_dist
+    max_value = loc + width - safe_dist
+    
+    return uniform(min_value, max_value)
+
+def randomize_int(loc: float, width: float, safe_factor=0):
+    """randomize a number between loc and width with a safe distance (safe_factor*width).
+
+    Returns
+    -------
+    int
+        random integer
+    """
+    return round(randomize(loc, width, safe_factor))
+    
+
