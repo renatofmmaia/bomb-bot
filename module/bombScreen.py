@@ -33,7 +33,18 @@ class BombScreen:
             randomness_number(x, 10), randomness_number(y, 10), t + random() / 2
         )
 
-    def get_current_screen():
+    def wait_for_screen(bombScreenEnum, time_beteween: float = 0.5, timeout: float = 10):
+        def check_screen(): 
+            screen = BombScreen.get_current_screen()
+            if(screen == bombScreenEnum):
+                return True
+            else:
+                return None
+        
+        return do_with_timeout(check_screen, time_beteween=time_beteween, timeout=timeout)
+        
+    
+    def get_current_screen(time_beteween: float = 0.5, timeout: float = 10):
         targets = {
             BombScreenEnum.HOME.value: Image.TARGETS["identify_home"],
             BombScreenEnum.HEROES.value: Image.TARGETS["identify_heroes"],
@@ -89,19 +100,3 @@ class BombScreen:
 
         rectangles, weights = cv2.groupRectangles(rectangles, 1, 0.2)
         return rectangles
-
-    def click_if_image_found(img: str, timeout: float = 8):
-        # logger(None, progress_indicator=True)
-        return click_when_target_appears(img, timeout=timeout)
-        
-    def login():
-        pass
-
-    def home():
-        pass
-
-    def heroes():
-        pass
-
-    def treasure_hunt():
-        pass

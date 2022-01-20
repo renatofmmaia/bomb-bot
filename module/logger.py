@@ -1,6 +1,5 @@
 import sys
-
-from .utils import *
+import time
 
 # stream = open("./config.yaml", 'r')
 # c = yaml.safe_load(stream)
@@ -25,7 +24,7 @@ def logger(message, progress_indicator=False, color="default"):
     global last_log_is_progress
     color_formatted = COLOR.get(color.lower(), COLOR["default"])
 
-    formatted_datetime = date_formatted()
+    formatted_datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     formatted_message = "[{}] => {}".format(formatted_datetime, message)
     formatted_message_colored = color_formatted + formatted_message + "\033[0m"
 

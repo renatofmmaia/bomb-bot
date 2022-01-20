@@ -8,6 +8,7 @@ from .logger import logger
 from .window import get_windows
 from .config import Config
 from .utils import *
+from .mouse import *
 
 
 def create_bombcrypto_managers():
@@ -48,16 +49,16 @@ class BombcryptoManager:
             logger("🎉 Login page detected.")
 
             logger("🎉 Clicking in wallet button...")
-            if not BombScreen.click_if_image_found("button_connect_wallet"):
+            if not click_when_target_appears("button_connect_wallet", 20):
                 refresh_page()
                 continue
             
             logger("🎉 Clicking in sigin wallet button...")
-            if not BombScreen.click_if_image_found("button_connect_wallet_sign", 10):
+            if not click_when_target_appears("button_connect_wallet_sign", 20):
                 refresh_page()
                 continue
             
-            if BombScreen.get_current_screen() != BombScreenEnum.HOME.value:
+            if BombScreen.wait_for_screen(BombScreenEnum.HOME.value, timeout=20) != BombScreenEnum.HOME.value:
                 logger("🎉 Failed to login, restart proccess...")
                 continue
             else:    

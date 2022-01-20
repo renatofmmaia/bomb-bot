@@ -1,7 +1,8 @@
 import time
 import pyautogui
 
-from random import random ,uniform
+from random import *
+from .logger import logger
 
 
 def date_formatted(format="%Y-%m-%d %H:%M:%S"):
@@ -57,4 +58,18 @@ def randomize_int(loc: float, width: float, safe_factor=0):
 def refresh_page(delay:int = 5):
     pyautogui.hotkey('ctrl','f5')
     time.sleep(5)
+    
+    
+def do_with_timeout(function, args = [], kwargs = {}, time_beteween: float = 0.5, timeout: float = 10):
+    start_time = time.time()
+    while True:
+        if time.time() - start_time > timeout:
+            return None
+        
+        result = function(*args, **kwargs)
+
+        if result is not None:
+            return result
+        
+        time.sleep(time_beteween)
 
