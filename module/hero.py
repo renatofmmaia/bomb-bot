@@ -4,12 +4,24 @@ from .config import Config
 from .bombScreen import BombScreen, BombScreenEnum
 from .mouse import *
 from .image import Image
+import pyautogui
 
 class Hero:
 
     def who_needs_work():
         logger(f"😿 Performing heroes to work action, using config(hero_work_mod): {Config.get('hero_work_mod')}.")
-        click_on_multiple_targets("button_work_unchecked")
+        
+        for i in range(5):
+            move_to("hero_bar_vertical")
+            click_on_multiple_targets("button_work_unchecked", not_click="button_work_checked", filter_func=Image.filter_by_green_bar)            
+            pyautogui.dragRel(0,-200,duration=2, button='left',tween=pyautogui.easeOutQuad)
+            time.sleep(1)
+            logger(i)
+            
+            if i == 4:
+                click_on_multiple_targets("button_work_unchecked", not_click="button_work_checked", filter_func=Image.filter_by_green_bar)
+    
+    
         
     def refresh_hunt():
         logger("😿 Performing Refresh huting positions action")

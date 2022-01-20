@@ -26,7 +26,6 @@ class Image:
 
         Image.TARGETS = targets
 
-    @staticmethod
     def screen():
         with mss.mss() as sct:
             monitor = sct.monitors[0]
@@ -35,14 +34,13 @@ class Image:
             Image.MONITOR_TOP = monitor["top"]
             return sct_img[:, :, :3]
 
-    @staticmethod
-    def get_target_positions(target:str, threshold:float=0.8, not_target:str=None):
+    def get_target_positions(target:str, screen_image = None, threshold:float=0.8, not_target:str=None):
         threshold_config = Config.PROPERTIES["threshold"]["hero_to_work"]
         if(threshold_config):
             threshold = threshold_config
             
         target_img = Image.TARGETS[target]
-        screen_img = Image.screen()
+        screen_img = Image.screen() if screen_image is None else screen_image
         result = cv2.matchTemplate(screen_img, target_img, cv2.TM_CCOEFF_NORMED)
 
         if not_target is not None:
@@ -62,7 +60,6 @@ class Image:
             
         return targets_positions
     
-    @staticmethod
     def get_one_target_position(target:str, threshold:float=0.8):
         threshold_config = Config.get("threshold", "default")
         if(threshold_config):
@@ -81,4 +78,11 @@ class Image:
         height, width = target_img.shape[:2]
         
         return xloc[0], yloc[0], width, height
+
+    def filter_by_green_bar(item):
+        x,y,w,h = item
+        y_increment = round(h*0.1)
+        screen_img = Image.screen()[y:y+h+y_increment,:]
+        result = Image.get_target_positions("hero_bar_green", screen_image=screen_img)
+        return len(result) > 0
       

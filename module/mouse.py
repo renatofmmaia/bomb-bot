@@ -3,11 +3,12 @@ import pyautogui
 import time
 from .utils import *
 from .logger import logger
+import PIL.Image
 
-def click_on_multiple_targets(target: str, not_click:str= None, filter_func: function=None):
+def click_on_multiple_targets(target: str, not_click:str= None, filter_func = None):
     """click in a list of target. Returns number of clicks"""
     targets_positions = Image.get_target_positions(target, not_target=not_click)
-    if filter is not None:
+    if filter_func is not None:
         targets_positions = filter(filter_func, targets_positions)
 
 
@@ -19,7 +20,7 @@ def click_on_multiple_targets(target: str, not_click:str= None, filter_func: fun
         pyautogui.click(duration=click_duration)
         click_count += 1
     
-    return click_count
+    return click_count    
 
 def click_one_target(target: str):
     """click in a target. Returns number of clicks"""
@@ -56,4 +57,8 @@ def randomize_values(x, w, y, h):
 
     return x_rand, y_rand, move_duration, click_duration, time_between
 
+def move_to(target:str):
+    x, y, w, h = Image.get_one_target_position(target)
+    x, y, move_duration, click_duration, time_between  = randomize_values(x, w, y, h)
+    pyautogui.moveTo(x, y, duration=move_duration, tween=pyautogui.easeOutQuad)
 
