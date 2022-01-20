@@ -36,7 +36,7 @@ class Image:
             return sct_img[:, :, :3]
 
     @staticmethod
-    def get_target_positions(target:str, threshold:float=0.8):
+    def get_target_positions(target:str, threshold:float=0.8, not_target:str=None):
         threshold_config = Config.PROPERTIES["threshold"]["hero_to_work"]
         if(threshold_config):
             threshold = threshold_config
@@ -44,6 +44,12 @@ class Image:
         target_img = Image.TARGETS[target]
         screen_img = Image.screen()
         result = cv2.matchTemplate(screen_img, target_img, cv2.TM_CCOEFF_NORMED)
+
+        if not_target is not None:
+            not_target_img = Image.TARGETS[not_target]
+            not_target_result = cv2.matchTemplate(screen_img, not_target_img, cv2.TM_CCOEFF_NORMED)
+            result[result < not_target_result] = 0
+
         y_result, x_result = np.where( result >= threshold)
         
         

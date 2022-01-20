@@ -4,9 +4,13 @@ import time
 from .utils import *
 from .logger import logger
 
-def click_on_multiple_targets(target: str):
+def click_on_multiple_targets(target: str, not_click:str= None, filter_func: function=None):
     """click in a list of target. Returns number of clicks"""
-    targets_positions = Image.get_target_positions(target)
+    targets_positions = Image.get_target_positions(target, not_target=not_click)
+    if filter is not None:
+        targets_positions = filter(filter_func, targets_positions)
+
+
     click_count = 0
     for x, y, w, h in targets_positions:
         x, y, move_duration, click_duration, time_between  = randomize_values(x, w, y, h)
