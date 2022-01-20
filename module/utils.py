@@ -2,6 +2,7 @@ import time
 import pyautogui
 
 from random import *
+from .config import Config
 from .logger import logger
 
 
@@ -56,11 +57,13 @@ def randomize_int(loc: float, width: float, safe_factor=0):
     return round(randomize(loc, width, safe_factor))
 
 def refresh_page(delay:int = 5):
-    pyautogui.hotkey('ctrl','f5')
-    time.sleep(5)
+    shortcut_config = Config.get('refresh_page_shortcut')
+    if shortcut_config == 1:
+        pyautogui.hotkey('ctrl', 'f5')
+    else:
+        pyautogui.hotkey('ctrl', 'shift' 'r')
     
-    
-def do_with_timeout(function, args = [], kwargs = {}, time_beteween: float = 0.5, timeout: float = 10):
+def do_with_timeout(function, args = [], kwargs = {}, time_beteween: float = 0.5, timeout: float = 20):
     start_time = time.time()
     while True:
         if time.time() - start_time > timeout:

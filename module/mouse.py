@@ -7,9 +7,9 @@ from .logger import logger
 def click_on_multiple_targets(target: str):
     """click in a list of target. Returns number of clicks"""
     targets_positions = Image.get_target_positions(target)
-    targets_randomized = randomize_values(targets_positions)
     click_count = 0
-    for (x, y, move_duration, time_between, click_duration) in targets_randomized:
+    for x, y, w, h in targets_positions:
+        x, y, move_duration, click_duration, time_between  = randomize_values(x, w, y, h)
         pyautogui.moveTo(x, y, duration=move_duration, tween=pyautogui.easeOutQuad)
         time.sleep(time_between)
         pyautogui.click(duration=click_duration)
@@ -28,7 +28,8 @@ def click_one_target(target: str):
         pyautogui.click(duration=click_duration)
         result = True
     except Exception as e:
-        logger(f"Error: {e}")
+        return None
+        # logger(f"Error: {e}")
     
     return result
 

@@ -27,8 +27,15 @@ threshold:
     # Valor padrão: 0.7
     default: 0.7
 
+    hero_to_work: 0.9
+
 # [pt_BR] Modo em que o bot seleciona os herois que precisam trabalhar
 # Valor padrão: green
 # green = apenas herois com a barra de stamina verde
 hero_work_mod: "green"
+
+# [pt_BR] Modo em que o bot seleciona os herois que precisam trabalhar
+# Valor padrão: 1 = CTRL + F5
+# 2 = CTRL + SHIFT + R
+refresh_page_shortcut: 1
 

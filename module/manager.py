@@ -4,6 +4,7 @@ from enum import Enum
 from .bombScreen import BombScreen, BombScreenEnum
 from .hero import Hero
 from .image import Image
+from .login import Login
 from .logger import logger
 from .window import get_windows
 from .config import Config
@@ -36,39 +37,12 @@ class BombcryptoManager:
         print(BombScreen.get_currentScreen(self.image_targets))
 
     def login_action(self):
-        logger("😿 Performing login action")
-        
-        login_attepmts = Config.PROPERTIES["screen"]["number_login_attempts"]
-        
-        logged = False
-        for i in range(login_attepmts):
-            
-            if BombScreen.get_current_screen() != BombScreenEnum.LOGIN.value:
-                refresh_page()
-                
-            logger("🎉 Login page detected.")
-
-            logger("🎉 Clicking in wallet button...")
-            if not click_when_target_appears("button_connect_wallet", 20):
-                refresh_page()
-                continue
-            
-            logger("🎉 Clicking in sigin wallet button...")
-            if not click_when_target_appears("button_connect_wallet_sign", 20):
-                refresh_page()
-                continue
-            
-            if BombScreen.wait_for_screen(BombScreenEnum.HOME.value, timeout=20) != BombScreenEnum.HOME.value:
-                logger("🎉 Failed to login, restart proccess...")
-                continue
-            else:    
-                logger("🎉 Login successfully!")
-                logged = True
-                break
-            
-        return logged
+        return Login.do_login()
        
 
-    def hero_check_work():
+    def hero_check_work(self):
         Hero.who_needs_work()
         return True
+    
+    def hero_refresh_hunt(self):
+        return Hero.refresh_hunt()

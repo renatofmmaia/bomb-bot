@@ -15,6 +15,7 @@ from .mouse import *
 
 
 class BombScreenEnum(Enum):
+    NOT_FOUND = -1
     LOGIN = 0
     HOME = 1
     HEROES = 2
@@ -33,18 +34,18 @@ class BombScreen:
             randomness_number(x, 10), randomness_number(y, 10), t + random() / 2
         )
 
-    def wait_for_screen(bombScreenEnum, time_beteween: float = 0.5, timeout: float = 10):
-        def check_screen(): 
+    def wait_for_screen(bombScreenEnum, time_beteween: float = 0.5, timeout: float = 60):
+        def check_screen():
             screen = BombScreen.get_current_screen()
             if(screen == bombScreenEnum):
                 return True
             else:
                 return None
-        
+            
         return do_with_timeout(check_screen, time_beteween=time_beteween, timeout=timeout)
         
     
-    def get_current_screen(time_beteween: float = 0.5, timeout: float = 10):
+    def get_current_screen(time_beteween: float = 0.5, timeout: float = 20):
         targets = {
             BombScreenEnum.HOME.value: Image.TARGETS["identify_home"],
             BombScreenEnum.HEROES.value: Image.TARGETS["identify_heroes"],
@@ -53,7 +54,7 @@ class BombScreen:
         }
         max_value = 0
         img = Image.screen()
-        screen_name = None
+        screen_name = -1
 
         for name, target_img in targets.items():
             result = cv2.matchTemplate(img, target_img, cv2.TM_CCOEFF_NORMED)
@@ -62,8 +63,8 @@ class BombScreen:
                 max_value = max_value_local
                 screen_name = name
 
-        # print(f"you are in {screen_name}")
-        return screen_name
+        
+        return screen_name if max_value > Config.get('threshold','default') else -1
 
     def check_image_on_screen(target, img=None):
         threshold = Config.PROPERTIES["threshold"]["default"]

@@ -37,14 +37,24 @@ class Image:
 
     @staticmethod
     def get_target_positions(target:str, threshold:float=0.8):
-        threshold_config = Config.PROPERTIES["threshold"]["default"]
+        threshold_config = Config.PROPERTIES["threshold"]["hero_to_work"]
         if(threshold_config):
             threshold = threshold_config
             
         target_img = Image.TARGETS[target]
         screen_img = Image.screen()
         result = cv2.matchTemplate(screen_img, target_img, cv2.TM_CCOEFF_NORMED)
-        return np.where( result >= threshold)
+        y_result, x_result = np.where( result >= threshold)
+        
+        
+        height, width = target_img.shape[:2]
+        targets_positions = []
+        for (x,y) in zip(x_result, y_result):
+            x += Image.MONITOR_LEFT
+            y += Image.MONITOR_TOP
+            targets_positions.append([x,y,width,height])
+            
+        return targets_positions
     
     @staticmethod
     def get_one_target_position(target:str, threshold:float=0.8):
@@ -62,7 +72,7 @@ class Image:
         yloc, xloc = np.where(result == result.max())
         xloc += Image.MONITOR_LEFT
         yloc += Image.MONITOR_TOP
-        hight, width = target_img.shape[:2]
+        height, width = target_img.shape[:2]
         
-        return xloc[0], yloc[0], width, hight
+        return xloc[0], yloc[0], width, height
       

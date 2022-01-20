@@ -18,7 +18,7 @@ def main(config_file):
     # while True:
     for manager in bomb_crypto_managers:
         with manager:
-            print(manager.login_action())
+            print(manager.hero_check_work())
         
         # with manager:
         #     print(manager.hero_check_work())
