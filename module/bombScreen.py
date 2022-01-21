@@ -5,7 +5,7 @@ from cv2 import cv2
 
 from .config import Config
 from .image import Image
-from .logger import logger
+from .logger import logger, logger_action_init
 from .mouse import *
 from .utils import *
 from .telegram import TelegramBot
@@ -88,7 +88,8 @@ class BombScreen:
             BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
             
     def do_print_chest(manager):
-        logger("😿 Performing print chest action")
+        logger_action_init("print chest")
+        
         if BombScreen.get_current_screen() != BombScreenEnum.TREASURE_HUNT.value:
             BombScreen.go_to_treasure_hunt(manager)
         
@@ -103,33 +104,34 @@ class BombScreen:
 
 class Login:
     def do_login(manager):
-        logger("😿 Performing login action")
+        logger_action_init("login")
 
         login_attepmts = Config.PROPERTIES["screen"]["number_login_attempts"]
 
         logged = False
         for i in range(login_attepmts):
             current_screen = BombScreen.get_current_screen()
-            logger(f"🎉 {BombScreenEnum(current_screen).name} page detected.")
+            logger(f"🚩 {BombScreenEnum(current_screen).name} page detected.")
+            
             if BombScreen.get_current_screen() != BombScreenEnum.LOGIN.value:
                 logger(f"🎉 refreshing page.")
                 refresh_page()
                 BombScreen.wait_for_screen(BombScreenEnum.LOGIN.value)
 
-            logger("🎉 Login page detected.")
+            logger("🚩 Login page detected.")
 
-            logger("🎉 Clicking in wallet button...")
+            logger("❎ Clicking in wallet button...")
             if not click_when_target_appears("button_connect_wallet"):
                 refresh_page()
                 continue
 
-            logger("🎉 Clicking in sigin wallet button...")
+            logger("❎ Clicking in sigin wallet button...")
             if not click_when_target_appears("button_connect_wallet_sign"):
                 refresh_page()
                 continue
 
             if (BombScreen.wait_for_screen(BombScreenEnum.HOME.value)!= BombScreenEnum.HOME.value):
-                logger("🎉 Failed to login, restart proccess...")
+                logger("🚫 Failed to login, restart proccess...")
                 continue
             else:
                 logger("🎉 Login successfully!")
@@ -142,9 +144,8 @@ class Login:
 
 class Hero:
     def who_needs_work(manager):
-        logger(
-            f"😿 Performing heroes to work action, using config: {Config.get('hero','work_mod')}."
-        )
+        logger_action_init(f"heroes to work(config: {Config.get('hero','work_mod')})")
+
         BombScreen.go_to_home(manager)
         BombScreen.go_to_heroes(manager)
         def click_betwenn_scrolls():
@@ -164,7 +165,7 @@ class Hero:
         return True
 
     def refresh_hunt(manager):
-        logger("😿 Performing Refresh huting positions action")
+        logger_action_init("Refresh huting positions")
 
         BombScreen.go_to_home(manager)
         BombScreen.go_to_treasure_hunt(manager)

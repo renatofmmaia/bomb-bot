@@ -2,11 +2,6 @@ import sys
 import time
 from .config import Config
 
-# stream = open("./config.yaml", 'r')
-# c = yaml.safe_load(stream)
-
-last_log_is_progress = False
-
 COLOR = {
     "blue": "\033[94m",
     "default": "\033[99m",
@@ -32,11 +27,6 @@ def logger(message, color="default", force_log_file=False):
     sys.stdout.write(color_formatted + ".")
     sys.stdout.flush()
 
-    # if last_log_is_progress:
-    #     sys.stdout.write("\n")
-    #     sys.stdout.flush()
-    #     last_log_is_progress = False
-
     print(formatted_message_colored)
 
     if Config.get('generals','save_log_file') or force_log_file:
@@ -45,3 +35,7 @@ def logger(message, color="default", force_log_file=False):
         logger_file.close()
 
     return True
+
+def logger_action_init(action:str):
+    return logger(f"🐧 Performing {action} action")
+    
