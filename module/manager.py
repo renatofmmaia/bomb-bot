@@ -33,15 +33,15 @@ class BombcryptoManager:
 
     def do_what_needs_to_be_done(self):    
         check_heroes=Config.get('screen', 'check_heroes')*60
-        if check_heroes and now() - self.heroes_check > check_heroes:
+        if (check_heroes and (now() - self.heroes_check > check_heroes)):
             Hero.who_needs_work(self)
 
         refresh_hunt = Config.get('screen', 'refresh_hunt')*60
-        if refresh_hunt and now() - self.refresh_hunt > refresh_hunt:
+        if (refresh_hunt and (now() - self.refresh_hunt > refresh_hunt)):
             Hero.refresh_hunt(self)
 
         refresh_login = Config.get('screen', 'refresh_login')*60
-        if refresh_login and now() - self.refresh_login > refresh_login:
+        if (refresh_login and (now() - self.refresh_login > refresh_login)):
             Login.do_login(self)
         
         return True
@@ -51,9 +51,9 @@ class BombcryptoManager:
         if logged:
             self.refresh_login = time.time()
 
-    def set_treasure_hunt_refreshed(self):
+    def set_positions_refreshed(self):
         self.refresh_hunt = time.time()
     
-    def set_positions_refreshed(self):
+    def set_heroes_refreshed(self):
         self.heroes_check = time.time()
 

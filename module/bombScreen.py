@@ -110,10 +110,7 @@ class Login:
                 refresh_page()
                 continue
 
-            if (
-                BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
-                != BombScreenEnum.HOME.value
-            ):
+            if (BombScreen.wait_for_screen(BombScreenEnum.HOME.value)!= BombScreenEnum.HOME.value):
                 logger("🎉 Failed to login, restart proccess...")
                 continue
             else:
@@ -145,7 +142,7 @@ class Hero:
         )
         logger(f"🏃 {sum(n_clicks_per_scrool)} heros sent to explode everything 💣💣💣.")
         Hero.refresh_hunt(manager)
-        manager.set_treasure_hunt_refreshed()
+        manager.set_heroes_refreshed()
         return True
 
     def refresh_hunt(manager):
@@ -154,6 +151,6 @@ class Hero:
         BombScreen.go_to_home(manager)
         BombScreen.go_to_treasure_hunt(manager)
 
-        manager.set_treasure_hunt_refreshed()
+        manager.set_positions_refreshed()
         logger("🎉 Refresh huting positions success!")
         return True
