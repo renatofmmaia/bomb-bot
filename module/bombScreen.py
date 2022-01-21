@@ -86,7 +86,7 @@ class BombScreen:
 
 
 class Login:
-    def do_login():
+    def do_login(manager):
         logger("😿 Performing login action")
 
         login_attepmts = Config.PROPERTIES["screen"]["number_login_attempts"]
@@ -121,11 +121,12 @@ class Login:
                 logged = True
                 break
 
+        manager.set_logged(logged)
         return logged
 
 
 class Hero:
-    def who_needs_work():
+    def who_needs_work(manager):
         logger(
             f"😿 Performing heroes to work action, using config: {Config.get('hero_work_mod')}."
         )
@@ -142,14 +143,16 @@ class Hero:
             function_between=click_betwenn_scrolls
         )
         logger(f"🏃 {sum(n_clicks_per_scrool)} heros sent to explode everything 💣💣💣.")
-        Hero.refresh_hunt()
+        Hero.refresh_hunt(manager)
+        manager.set_heroes_checked()
         return True
 
-    def refresh_hunt():
+    def refresh_hunt(manager):
         logger("😿 Performing Refresh huting positions action")
 
         BombScreen.go_to_home()
         BombScreen.go_to_treasure_hunt()
 
+        manager.set_treasure_hunt_refreshed()
         logger("🎉 Refresh huting positions success!")
         return True

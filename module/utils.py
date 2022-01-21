@@ -77,3 +77,5 @@ def do_with_timeout(function, args = [], kwargs = {}, time_beteween: float = 0.5
         
         time.sleep(time_beteween)
 
+def now():
+    return time.time()
