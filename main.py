@@ -4,24 +4,23 @@ import yaml
 
 from module.bombScreen import BombScreen
 from module.config import Config
-from module.hero import Hero
 from module.image import Image
 from module.manager import create_bombcrypto_managers
 from module.platform import Platform, PlatformEnum
-
+from time import sleep
 
 def main(config_file):
     Config.load_config(config_file)
     Image.load_targets()
 
     bomb_crypto_managers = create_bombcrypto_managers()
-    # while True:
-    for manager in bomb_crypto_managers:
-        with manager:
-            print(manager.hero_check_work())
-        
-        # with manager:
-        #     print(manager.hero_check_work())
+    while True:
+        for manager in bomb_crypto_managers:
+            with manager:
+                manager.do_what_need_to_be_done()
+
+        sleep(5)
+
 
 
 if __name__ == "__main__":

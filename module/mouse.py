@@ -62,3 +62,18 @@ def move_to(target:str):
     x, y, move_duration, click_duration, time_between  = randomize_values(x, w, y, h)
     pyautogui.moveTo(x, y, duration=move_duration, tween=pyautogui.easeOutQuad)
 
+def scroll_and_click_on_targets(safe_scroll_target: str, repeat: int, function_between: function, execute_before=False, execute_after=True):
+    res = []
+    if execute_before:
+        res.append(function_between())
+
+    for i in range(repeat):
+        move_to(safe_scroll_target)
+        res.append(function_between())      
+        pyautogui.dragRel(0,-200,duration=2, button='left',tween=pyautogui.easeOutQuad)
+        time.sleep(1)
+    
+    if execute_after:
+        res.append(function_between())
+
+    return res

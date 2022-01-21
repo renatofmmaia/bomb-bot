@@ -7,11 +7,13 @@ import PIL.Image
 import pyautogui
 from cv2 import cv2
 
+from .bombScreen import BombScreen, BombScreenEnum
 from .config import Config
 from .image import Image
 from .logger import logger
-from .utils import *
+from .login import Login
 from .mouse import *
+from .utils import *
 
 
 class BombScreenEnum(Enum):
@@ -24,27 +26,20 @@ class BombScreenEnum(Enum):
 
 class BombScreen:
 
-    def click_image_randomness(x, y, t):
-        with mss.mss() as sct:
-            monitor = sct.monitors[0]
-            x += monitor["left"]
-            y += monitor["top"]
-
-        pyautogui.moveTo(
-            randomness_number(x, 10), randomness_number(y, 10), t + random() / 2
-        )
-
-    def wait_for_screen(bombScreenEnum, time_beteween: float = 0.5, timeout: float = 60):
+    def wait_for_screen(
+        bombScreenEnum, time_beteween: float = 0.5, timeout: float = 60
+    ):
         def check_screen():
             screen = BombScreen.get_current_screen()
-            if(screen == bombScreenEnum):
+            if screen == bombScreenEnum:
                 return True
             else:
                 return None
-            
-        return do_with_timeout(check_screen, time_beteween=time_beteween, timeout=timeout)
-        
-    
+
+        return do_with_timeout(
+            check_screen, time_beteween=time_beteween, timeout=timeout
+        )
+
     def get_current_screen(time_beteween: float = 0.5, timeout: float = 20):
         targets = {
             BombScreenEnum.HOME.value: Image.TARGETS["identify_home"],
@@ -63,41 +58,103 @@ class BombScreen:
                 max_value = max_value_local
                 screen_name = name
 
-        
-        return screen_name if max_value > Config.get('threshold','default') else -1
+        return screen_name if max_value > Config.get("threshold", "default") else -1
 
-    def check_image_on_screen(target, img=None):
-        threshold = Config.PROPERTIES["threshold"]["default"]
-        result = cv2.matchTemplate(img, target, cv2.TM_CCOEFF_NORMED)
-        w = target.shape[1]
-        h = target.shape[0]
+    def go_to_home():
+        current_screen = BombScreen.get_current_screen()
+        if current_screen == BombScreenEnum.HOME.value:
+            return
+        elif current_screen == BombScreenEnum.TREASURE_HUNT.value:
+            click_when_target_appears("button_back")
+        elif current_screen == BombScreenEnum.HEROES.value:
+            click_when_target_appears("buttun_x_close")
+        else:
+            Login.do_login()
+            return
 
-        yloc, xloc = np.where(result >= threshold)
+        BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
 
-        rectangles = []
-        for (x, y) in zip(xloc, yloc):
-            rectangles.append([int(x), int(y), int(w), int(h)])
-            rectangles.append([int(x), int(y), int(w), int(h)])
+    def go_to_heroes():
+        if BombScreen.get_current_screen() == BombScreenEnum.HEROES.value:
+            return
+        else:
+            BombScreen.go_to_home()
+            click_when_target_appears("button_heroes")
+            BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
 
-        rectangles, weights = cv2.groupRectangles(rectangles, 1, 0.2)
-        return rectangles
+    def go_to_treasure_hunt():
+        if BombScreen.get_current_screen() == BombScreenEnum.TREASURE_HUNT.value:
+            return
+        else:
+            BombScreen.go_to_home()
+            click_when_target_appears("identify_home")
+            BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
 
-    def target_image_positions(target, img=None):
-        threshold = Config.PROPERTIES["threshold"]["default"]
 
-        if img is None:
-            img = Image.screen()
+class Login:
+    def do_login():
+        logger("😿 Performing login action")
 
-        result = cv2.matchTemplate(img, target, cv2.TM_CCOEFF_NORMED)
-        w = target.shape[1]
-        h = target.shape[0]
+        login_attepmts = Config.PROPERTIES["screen"]["number_login_attempts"]
 
-        yloc, xloc = np.where(result >= threshold)
+        logged = False
+        for i in range(login_attepmts):
 
-        rectangles = []
-        for (x, y) in zip(xloc, yloc):
-            rectangles.append([int(x), int(y), int(w), int(h)])
-            rectangles.append([int(x), int(y), int(w), int(h)])
+            if BombScreen.get_current_screen() != BombScreenEnum.LOGIN.value:
+                refresh_page()
+                BombScreen.wait_for_screen(BombScreenEnum.LOGIN.value)
 
-        rectangles, weights = cv2.groupRectangles(rectangles, 1, 0.2)
-        return rectangles
+            logger("🎉 Login page detected.")
+
+            logger("🎉 Clicking in wallet button...")
+            if not click_when_target_appears("button_connect_wallet"):
+                refresh_page()
+                continue
+
+            logger("🎉 Clicking in sigin wallet button...")
+            if not click_when_target_appears("button_connect_wallet_sign"):
+                refresh_page()
+                continue
+
+            if (
+                BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
+                != BombScreenEnum.HOME.value
+            ):
+                logger("🎉 Failed to login, restart proccess...")
+                continue
+            else:
+                logger("🎉 Login successfully!")
+                logged = True
+                break
+
+        return logged
+
+
+class Hero:
+    def who_needs_work():
+        logger(
+            f"😿 Performing heroes to work action, using config: {Config.get('hero_work_mod')}."
+        )
+        BombScreen.go_to_heroes()
+
+        n_clicks_per_scrool = scroll_and_click_on_targets(
+            safe_scroll_target="hero_bar_vertical",
+            repeat=5,
+            function_between=lambda x: click_on_multiple_targets(
+                "button_work_unchecked",
+                not_click="button_work_checked",
+                filter_func=Image.filter_by_green_bar,
+            ),
+        )
+        logger(f"🏃 {sum(n_clicks_per_scrool)} heros sent to explode everything 💣💣💣.")
+        Hero.refresh_hunt()
+        return True
+
+    def refresh_hunt():
+        logger("😿 Performing Refresh huting positions action")
+
+        BombScreen.go_to_home()
+        BombScreen.go_to_treasure_hunt()
+
+        logger("🎉 Refresh huting positions success!")
+        return True
