@@ -72,17 +72,20 @@ def move_to(target:str):
 
     return do_with_timeout(move_to_logical)
 
-def scroll_and_click_on_targets(safe_scroll_target: str, repeat: int, function_between, execute_before=False, execute_after=True):
+def scroll_and_click_on_targets(safe_scroll_target: str, repeat: int, function_between, execute_before=True, execute_after=False):
     res = []
     if execute_before:
         res.append(function_between())
 
     for i in range(repeat):
         move_to(safe_scroll_target)
-        res.append(function_between())      
-        pyautogui.dragRel(0,-200,duration=3, button='left')
+        position = pyautogui.position()
+        pyautogui.mouseDown(duration=0.1)
+        pyautogui.moveRel(0,-200,duration=1,tween=pyautogui.easeOutQuad)
+        time.sleep(0.3)  
+        pyautogui.mouseUp(duration=0.1)
         click_when_target_appears(safe_scroll_target)
-        time.sleep(1)
+        res.append(function_between())    
     
     if execute_after:
         res.append(function_between())
