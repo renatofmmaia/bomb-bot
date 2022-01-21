@@ -1,17 +1,11 @@
-import time
 from enum import Enum
 
-import mss
-import numpy as np
-import PIL.Image
-import pyautogui
+
 from cv2 import cv2
 
-from .bombScreen import BombScreen, BombScreenEnum
 from .config import Config
 from .image import Image
 from .logger import logger
-from .login import Login
 from .mouse import *
 from .utils import *
 
@@ -136,15 +130,16 @@ class Hero:
             f"😿 Performing heroes to work action, using config: {Config.get('hero_work_mod')}."
         )
         BombScreen.go_to_heroes()
-
+        def click_betwenn_scrolls():
+            return click_on_multiple_targets(
+                            "button_work_unchecked",
+                            not_click="button_work_checked",
+                            filter_func=Image.filter_by_green_bar,
+                        )
         n_clicks_per_scrool = scroll_and_click_on_targets(
             safe_scroll_target="hero_bar_vertical",
             repeat=5,
-            function_between=lambda x: click_on_multiple_targets(
-                "button_work_unchecked",
-                not_click="button_work_checked",
-                filter_func=Image.filter_by_green_bar,
-            ),
+            function_between=click_betwenn_scrolls
         )
         logger(f"🏃 {sum(n_clicks_per_scrool)} heros sent to explode everything 💣💣💣.")
         Hero.refresh_hunt()

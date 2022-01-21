@@ -1,13 +1,10 @@
 import time
-from enum import Enum
 
-from .bombScreen import BombScreen, BombScreenEnum, Hero, Login
-from .image import Image
+from .bombScreen import BombScreen, Hero, Login
 from .logger import logger
-from .window import get_windows
-from .config import Config
-from .utils import *
 from .mouse import *
+from .utils import *
+from .window import get_windows
 
 
 def create_bombcrypto_managers():
@@ -19,8 +16,8 @@ class BombcryptoManager:
         self.window = window
         self.refresh_login = 0
         self.heroes_check = 0
-        self.print_coins = 0
         self.refresh_hunt = 0
+        self.print_coins = 0
 
     def __enter__(self):
         self.window.activate()
@@ -33,17 +30,17 @@ class BombcryptoManager:
     def identify_screen(self):
         print(BombScreen.get_currentScreen(self.image_targets))
 
-    def do_what_need_to_be_done(self):       
+    def do_what_needs_to_be_done(self):       
         if time.time() - self.heroes_check >  30*60:
             Hero.who_needs_work()
             self.heroes_check = time.time()
             self.refresh_heroes = time.time()
 
-        if time.time() - self.refresh_hunt > 30*60:
+        if time.time() - self.refresh_hunt > 5*60:
             Hero.refresh_hunt()
-            self.refresh_heroes = time.time()
+            self.refresh_hunt = time.time()
 
-        if time.time() - self.refresh_hunt > 30*60:
+        if time.time() - self.refresh_login > 30*60:
             Login.do_login()
             self.refresh_login = time.time()
         

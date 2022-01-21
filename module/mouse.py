@@ -1,9 +1,12 @@
-from .image import Image
-import pyautogui
 import time
-from .utils import *
-from .logger import logger
+
 import PIL.Image
+import pyautogui
+
+from .image import Image
+from .logger import logger
+from .utils import *
+
 
 def click_on_multiple_targets(target: str, not_click:str= None, filter_func = None):
     """click in a list of target. Returns number of clicks"""
@@ -62,7 +65,7 @@ def move_to(target:str):
     x, y, move_duration, click_duration, time_between  = randomize_values(x, w, y, h)
     pyautogui.moveTo(x, y, duration=move_duration, tween=pyautogui.easeOutQuad)
 
-def scroll_and_click_on_targets(safe_scroll_target: str, repeat: int, function_between: function, execute_before=False, execute_after=True):
+def scroll_and_click_on_targets(safe_scroll_target: str, repeat: int, function_between, execute_before=False, execute_after=True):
     res = []
     if execute_before:
         res.append(function_between())

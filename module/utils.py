@@ -1,7 +1,8 @@
 import time
+from random import *
+
 import pyautogui
 
-from random import *
 from .config import Config
 from .logger import logger
 
