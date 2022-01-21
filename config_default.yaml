@@ -17,13 +17,11 @@ screen:
 
 
 threshold:
-    default: 0.7
-    hero_to_work: 0.9
+  default: 0.7
+  hero_to_work: 0.9
 
 
 telegram:
   token: ""
   chat_id: 0
   refresh_print_chest: 60
-
-

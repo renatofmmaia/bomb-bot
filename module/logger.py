@@ -1,6 +1,14 @@
 import sys
 import time
 from .config import Config
+from enum import Enum
+
+class LoggerEnum(Enum):
+    ACTION = 0
+    BUTTON_CLICK = 1
+    PAGE_FOUND = 2
+    TIMER_REFRESH = 3
+    
 
 COLOR = {
     "blue": "\033[94m",
@@ -17,7 +25,6 @@ COLOR = {
 
 
 def logger(message, color="default", force_log_file=False):
-    # global last_log_is_progress
     color_formatted = COLOR.get(color.lower(), COLOR["default"])
 
     formatted_datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
@@ -34,8 +41,14 @@ def logger(message, color="default", force_log_file=False):
         logger_file.write(formatted_message + '\n')
         logger_file.close()
 
-    return True
-
-def logger_action_init(action:str):
-    return logger(f"🐧 Performing {action} action")
+def logger_translated(text: str, loggerEnum: LoggerEnum):
+    if loggerEnum.value == LoggerEnum.ACTION.value:
+        logger(f"🐧 Performing {text} action")
+    elif loggerEnum.value == LoggerEnum.BUTTON_CLICK.value:
+        logger(f"❎ Clicking in {text} button...")
+    elif loggerEnum.value == LoggerEnum.PAGE_FOUND.value:
+        logger(f"🚩 {text} page detected.")
+    elif loggerEnum.value == LoggerEnum.TIMER_REFRESH.value:
+        logger(f"🍺 Refresh {text}.")
+    
     
