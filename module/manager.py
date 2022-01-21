@@ -45,22 +45,7 @@ class BombcryptoManager:
             Login.do_login(self)
         
         return True
-    
-    def needs_to_send_heroes_to_work(self):
-        value = Config.get('check_heroes')
-        time_passed = time.time() - self.heroes_check >  value*60
-        return value and time_passed
-
-    def heros_needs_to_be_refreshed(self):
-        value = Config.get('check_heroes')
-        time_passed = time.time() - self.heroes_check >  value*60
-        return value and time_passed
-    
-    def heros_needs_to_be_refreshed(self):
-        value = Config.get('check_heroes')
-        time_passed = time.time() - self.heroes_check >  value*60
-        return value and time_passed
-
+  
     def set_logged(self, logged):
         self.logged = logged
         if logged:
