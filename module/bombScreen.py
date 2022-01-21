@@ -93,8 +93,10 @@ class Login:
 
         logged = False
         for i in range(login_attepmts):
-
+            current_screen = BombScreen.get_current_screen()
+            logger(f"🎉 {BombScreenEnum(current_screen).name} page detected.")
             if BombScreen.get_current_screen() != BombScreenEnum.LOGIN.value:
+                logger(f"🎉 refreshing page.")
                 refresh_page()
                 BombScreen.wait_for_screen(BombScreenEnum.LOGIN.value)
 

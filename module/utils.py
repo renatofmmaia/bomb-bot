@@ -62,7 +62,9 @@ def refresh_page(delay:int = 5):
     if shortcut_config == 1:
         pyautogui.hotkey('ctrl', 'f5')
     else:
-        pyautogui.hotkey('ctrl', 'shift' 'r')
+        with pyautogui.hold('ctrl'):
+            with pyautogui.hold('shift'):
+                pyautogui.press('r')
     
 def do_with_timeout(function, args = [], kwargs = {}, time_beteween: float = 0.5, timeout: float = 20):
     start_time = time.time()
