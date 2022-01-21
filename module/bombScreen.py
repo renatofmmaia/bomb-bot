@@ -54,7 +54,7 @@ class BombScreen:
 
         return screen_name if max_value > Config.get("threshold", "default") else -1
 
-    def go_to_home():
+    def go_to_home(manager):
         current_screen = BombScreen.get_current_screen()
         if current_screen == BombScreenEnum.HOME.value:
             return
@@ -63,24 +63,24 @@ class BombScreen:
         elif current_screen == BombScreenEnum.HEROES.value:
             click_when_target_appears("buttun_x_close")
         else:
-            Login.do_login()
+            Login.do_login(manager)
             return
 
         BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
 
-    def go_to_heroes():
+    def go_to_heroes(manager):
         if BombScreen.get_current_screen() == BombScreenEnum.HEROES.value:
             return
         else:
-            BombScreen.go_to_home()
+            BombScreen.go_to_home(manager)
             click_when_target_appears("button_heroes")
             BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
 
-    def go_to_treasure_hunt():
+    def go_to_treasure_hunt(manager):
         if BombScreen.get_current_screen() == BombScreenEnum.TREASURE_HUNT.value:
             return
         else:
-            BombScreen.go_to_home()
+            BombScreen.go_to_home(manager)
             click_when_target_appears("identify_home")
             BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
 
@@ -130,7 +130,8 @@ class Hero:
         logger(
             f"😿 Performing heroes to work action, using config: {Config.get('hero_work_mod')}."
         )
-        BombScreen.go_to_heroes()
+        BombScreen.go_to_home(manager)
+        BombScreen.go_to_heroes(manager)
         def click_betwenn_scrolls():
             return click_on_multiple_targets(
                             "button_work_unchecked",
@@ -144,14 +145,14 @@ class Hero:
         )
         logger(f"🏃 {sum(n_clicks_per_scrool)} heros sent to explode everything 💣💣💣.")
         Hero.refresh_hunt(manager)
-        manager.set_heroes_checked()
+        manager.set_treasure_hunt_refreshed()
         return True
 
     def refresh_hunt(manager):
         logger("😿 Performing Refresh huting positions action")
 
-        BombScreen.go_to_home()
-        BombScreen.go_to_treasure_hunt()
+        BombScreen.go_to_home(manager)
+        BombScreen.go_to_treasure_hunt(manager)
 
         manager.set_treasure_hunt_refreshed()
         logger("🎉 Refresh huting positions success!")

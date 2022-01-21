@@ -15,7 +15,7 @@ def create_bombcrypto_managers():
 class BombcryptoManager:
     def __init__(self, window) -> None:
         self.window = window
-        self.refresh_login = Config.get('refresh_login')*60
+        self.refresh_login = now() + Config.get('screen', 'refresh_login')*60
         self.heroes_check = 0
         self.refresh_hunt = 0
         self.print_coins = 0
@@ -32,15 +32,15 @@ class BombcryptoManager:
         print(BombScreen.get_currentScreen(self.image_targets))
 
     def do_what_needs_to_be_done(self):    
-        check_heroes=Config.get('check_heroes')*60
+        check_heroes=Config.get('screen', 'check_heroes')*60
         if check_heroes and now() - self.heroes_check > check_heroes:
             Hero.who_needs_work(self)
 
-        refresh_hunt = Config.get('refresh_hunt')*60
+        refresh_hunt = Config.get('screen', 'refresh_hunt')*60
         if refresh_hunt and now() - self.refresh_hunt > refresh_hunt:
             Hero.refresh_hunt(self)
 
-        refresh_login = Config.get('refresh_login')*60
+        refresh_login = Config.get('screen', 'refresh_login')*60
         if refresh_login and now() - self.refresh_login > refresh_login:
             Login.do_login(self)
         

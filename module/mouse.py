@@ -80,8 +80,8 @@ def scroll_and_click_on_targets(safe_scroll_target: str, repeat: int, function_b
     for i in range(repeat):
         move_to(safe_scroll_target)
         res.append(function_between())      
-        pyautogui.dragRel(0,-200,duration=2, button='left',tween=pyautogui.easeOutQuad)
-        time.sleep(1)
+        pyautogui.dragRel(0,-200,duration=3, button='left')
+        time.sleep(3)
     
     if execute_after:
         res.append(function_between())
