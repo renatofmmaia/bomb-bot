@@ -139,7 +139,7 @@ class Hero:
                         )
         n_clicks_per_scrool = scroll_and_click_on_targets(
             safe_scroll_target="hero_bar_vertical",
-            repeat=5,
+            repeat=Config.get('screen','scroll_how_mutch_try_move_down'),
             function_between=click_betwenn_scrolls
         )
         logger(f"🏃 {sum(n_clicks_per_scrool)} heros sent to explode everything 💣💣💣.")
