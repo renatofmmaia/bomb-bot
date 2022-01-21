@@ -142,7 +142,7 @@ class Hero:
             repeat=Config.get('screen','scroll_how_mutch_try_move_down'),
             function_between=click_betwenn_scrolls
         )
-        logger(f"🏃 {sum(n_clicks_per_scrool)} heros sent to explode everything 💣💣💣.")
+        logger(f"🏃 {sum(n_clicks_per_scrool)} new heros sent to explode everything 💣💣💣.")
         Hero.refresh_hunt(manager)
         manager.set_heroes_refreshed()
         return True
