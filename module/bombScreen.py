@@ -8,6 +8,7 @@ from .image import Image
 from .logger import logger
 from .mouse import *
 from .utils import *
+from .telegram import TelegramBot
 
 
 class BombScreenEnum(Enum):
@@ -16,6 +17,7 @@ class BombScreenEnum(Enum):
     HOME = 1
     HEROES = 2
     TREASURE_HUNT = 3
+    TREASURE_HUNT_CHEST = 4
 
 
 class BombScreen:
@@ -40,6 +42,7 @@ class BombScreen:
             BombScreenEnum.HEROES.value: Image.TARGETS["identify_heroes"],
             BombScreenEnum.LOGIN.value: Image.TARGETS["identify_login"],
             BombScreenEnum.TREASURE_HUNT.value: Image.TARGETS["identify_treasure_hunt"],
+            BombScreenEnum.TREASURE_HUNT_CHEST.value: Image.TARGETS["identify_hunt_chest"],
         }
         max_value = 0
         img = Image.screen()
@@ -83,6 +86,19 @@ class BombScreen:
             BombScreen.go_to_home(manager)
             click_when_target_appears("identify_home")
             BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
+            
+    def do_print_chest(manager):
+        logger("😿 Performing print chest action")
+        if BombScreen.get_current_screen() != BombScreenEnum.TREASURE_HUNT.value:
+            BombScreen.go_to_treasure_hunt(manager)
+        
+        click_when_target_appears("button_hunt_chest")
+        BombScreen.wait_for_screen(BombScreenEnum.TREASURE_HUNT_CHEST.value)
+        image = Image.print_screen("chest")
+        TelegramBot.send_message_with_image(image, "Se liga no farm desse bot, é muito BCOIN! :D")
+        click_when_target_appears("buttun_x_close")
+            
+        manager.set_print_chest_refreshed()
 
 
 class Login:
@@ -127,7 +143,7 @@ class Login:
 class Hero:
     def who_needs_work(manager):
         logger(
-            f"😿 Performing heroes to work action, using config: {Config.get('hero_work_mod')}."
+            f"😿 Performing heroes to work action, using config: {Config.get('hero','work_mod')}."
         )
         BombScreen.go_to_home(manager)
         BombScreen.go_to_heroes(manager)

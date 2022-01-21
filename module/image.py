@@ -3,6 +3,7 @@ from turtle import width
 
 import mss
 import numpy as np
+import PIL.Image
 from cv2 import cv2
 
 from .config import Config
@@ -33,6 +34,13 @@ class Image:
             Image.MONITOR_LEFT = monitor["left"]
             Image.MONITOR_TOP = monitor["top"]
             return sct_img[:, :, :3]
+    
+    def print_screen(image_name: str):
+        monitor_screen = Image.screen()
+        image = PIL.Image.fromarray(monitor_screen)
+        image_name = f'{image_name}.png'
+        image.save(image_name)
+        return image_name
 
     def get_target_positions(target:str, screen_image = None, threshold:float=0.8, not_target:str=None):
         threshold_config = Config.PROPERTIES["threshold"]["hero_to_work"]

@@ -16,9 +16,9 @@ class BombcryptoManager:
     def __init__(self, window) -> None:
         self.window = window
         self.refresh_login = now() + Config.get('screen', 'refresh_login')*60
-        self.heroes_check = 0
+        self.refresh_heroes = 0
         self.refresh_hunt = 0
-        self.print_coins = 0
+        self.refresh_print_chest = 0
 
     def __enter__(self):
         self.window.activate()
@@ -31,9 +31,10 @@ class BombcryptoManager:
     def identify_screen(self):
         print(BombScreen.get_currentScreen(self.image_targets))
 
-    def do_what_needs_to_be_done(self):    
-        check_heroes=Config.get('screen', 'check_heroes')*60
-        if (check_heroes and (now() - self.heroes_check > check_heroes)):
+    def do_what_needs_to_be_done(self):
+            
+        refresh_heroes=Config.get('screen', 'refresh_heroes')*60
+        if (refresh_heroes and (now() - self.refresh_heroes > refresh_heroes)):
             Hero.who_needs_work(self)
 
         refresh_hunt = Config.get('screen', 'refresh_hunt')*60
@@ -43,6 +44,10 @@ class BombcryptoManager:
         refresh_login = Config.get('screen', 'refresh_login')*60
         if (refresh_login and (now() - self.refresh_login > refresh_login)):
             Login.do_login(self)
+            
+        refresh_print_chest = Config.get('telegram', 'refresh_print_chest')*60
+        if (refresh_print_chest and (now() - self.refresh_print_chest > refresh_print_chest)):
+            BombScreen.do_print_chest(self)
         
         return True
   
@@ -55,5 +60,8 @@ class BombcryptoManager:
         self.refresh_hunt = time.time()
     
     def set_heroes_refreshed(self):
-        self.heroes_check = time.time()
+        self.refresh_heroes = time.time()
+    
+    def set_print_chest_refreshed(self):
+        self.refresh_print_chest = time.time()
 

@@ -1,5 +1,6 @@
 import sys
 import time
+from .config import Config
 
 # stream = open("./config.yaml", 'r')
 # c = yaml.safe_load(stream)
@@ -20,45 +21,27 @@ COLOR = {
 }
 
 
-def logger(message, progress_indicator=False, color="default"):
-    global last_log_is_progress
+def logger(message, color="default", force_log_file=False):
+    # global last_log_is_progress
     color_formatted = COLOR.get(color.lower(), COLOR["default"])
 
     formatted_datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     formatted_message = "[{}] => {}".format(formatted_datetime, message)
     formatted_message_colored = color_formatted + formatted_message + "\033[0m"
 
-    # Start progress indicator and append dots to in subsequent progress calls
-    if progress_indicator:
-        if not last_log_is_progress:
-            last_log_is_progress = True
-            formatted_message = color_formatted + "[{}] => {}".format(
-                formatted_datetime, "⬆️ Processing last action.."
-            )
-            sys.stdout.write(formatted_message)
-            sys.stdout.flush()
-        else:
-            sys.stdout.write(color_formatted + ".")
-            sys.stdout.flush()
-        return
+    sys.stdout.write(color_formatted + ".")
+    sys.stdout.flush()
 
-    if last_log_is_progress:
-        sys.stdout.write("\n")
-        sys.stdout.flush()
-        last_log_is_progress = False
+    # if last_log_is_progress:
+    #     sys.stdout.write("\n")
+    #     sys.stdout.flush()
+    #     last_log_is_progress = False
 
     print(formatted_message_colored)
 
-    # if (c['save_log_to_file'] == True):
-    #     logger_file = open("./logs/logger.log", "a", encoding='utf-8')
-    #     logger_file.write(formatted_message + '\n')
-    #     logger_file.close()
+    if Config.get('generals','save_log_file') or force_log_file:
+        logger_file = open("./logs/logger.log", "a+", encoding='utf-8')
+        logger_file.write(formatted_message + '\n')
+        logger_file.close()
 
     return True
-
-
-def loggerMapClicked():
-    logger("🗺️ New Map button clicked!")
-    logger_file = open("./logs/new-map.log", "a", encoding="utf-8")
-    logger_file.write(date_formatted() + "\n")
-    logger_file.close()
