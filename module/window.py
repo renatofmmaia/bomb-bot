@@ -1,5 +1,4 @@
 import subprocess
-import sys
 
 from module.platform import Platform, PlatformEnum
 
@@ -24,12 +23,10 @@ def _get_linux_bombcrypto_windows():
     windows = stdout.split("\n")
     return [LinuxWindow(w) for w in windows]
 
-
 def _get_bombcrypto_windows():
     import pygetwindow
 
     return [DefaultWindow(w) for w in pygetwindow.getWindowsWithTitle("bombcrypto")]
-
 
 class LinuxWindow:
     def __init__(self, window_id) -> None:
@@ -37,7 +34,6 @@ class LinuxWindow:
 
     def activate(self):
         subprocess.Popen(f"xdotool windowactivate {self.window}", shell=True)
-
 
 class DefaultWindow:
     def __init__(self, window) -> None:

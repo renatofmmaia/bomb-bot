@@ -95,8 +95,16 @@ class BombScreen:
         
         click_when_target_appears("button_hunt_chest")
         BombScreen.wait_for_screen(BombScreenEnum.TREASURE_HUNT_CHEST.value)
-        image = Image.print_screen("chest")
-        TelegramBot.send_message_with_image(image, "Se liga no farm desse bot, é muito BCOIN! :D")
+        image = None
+
+        if Config.get("screen", "print_full_screen"):
+            image = Image.print_screen("chest")
+        else:
+            x,y,w,h = Image.get_one_target_position("chest_screen_for_geometry", 0)
+            image = pyautogui.screenshot(region=(x,y,w,h))
+            image.save("chest.png")
+
+        TelegramBot.send_message_with_image("chest.png", "Se liga no farm desse bot, é muito BCOIN! :D")
         click_when_target_appears("buttun_x_close")
             
         manager.set_print_chest_refreshed()
