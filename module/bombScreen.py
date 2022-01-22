@@ -17,7 +17,7 @@ class BombScreenEnum(Enum):
     HOME = 1
     HEROES = 2
     TREASURE_HUNT = 3
-    TREASURE_HUNT_CHEST = 4
+    CHEST = 4
 
 
 class BombScreen:
@@ -35,6 +35,21 @@ class BombScreen:
         return do_with_timeout(
             check_screen, time_beteween=time_beteween, timeout=timeout
         )
+    
+    def wait_for_leave_screen(
+        bombScreenEnum, time_beteween: float = 0.5, timeout: float = 60
+    ):
+        def check_screen():
+            screen = BombScreen.get_current_screen()
+            if screen == bombScreenEnum:
+                return None
+            else:
+                return True
+
+        return do_with_timeout(
+            check_screen, time_beteween=time_beteween, timeout=timeout
+        )
+
 
     def get_current_screen(time_beteween: float = 0.5, timeout: float = 20):
         targets = {
@@ -42,7 +57,7 @@ class BombScreen:
             BombScreenEnum.HEROES.value: Image.TARGETS["identify_heroes"],
             BombScreenEnum.LOGIN.value: Image.TARGETS["identify_login"],
             BombScreenEnum.TREASURE_HUNT.value: Image.TARGETS["identify_treasure_hunt"],
-            BombScreenEnum.TREASURE_HUNT_CHEST.value: Image.TARGETS["identify_hunt_chest"],
+            BombScreenEnum.CHEST.value: Image.TARGETS["identify_hunt_chest"],
         }
         max_value = 0
         img = Image.screen()
@@ -65,6 +80,9 @@ class BombScreen:
             click_when_target_appears("button_back")
         elif current_screen == BombScreenEnum.HEROES.value:
             click_when_target_appears("buttun_x_close")
+        elif current_screen == BombScreenEnum.CHEST.value:
+            click_when_target_appears("buttun_x_close")
+            return BombScreen.go_to_home(manager)
         else:
             Login.do_login(manager)
             return
@@ -72,8 +90,13 @@ class BombScreen:
         BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
 
     def go_to_heroes(manager):
-        if BombScreen.get_current_screen() == BombScreenEnum.HEROES.value:
+        current_screen = BombScreen.get_current_screen()
+        if current_screen == BombScreenEnum.HEROES.value:
             return
+        elif current_screen == BombScreenEnum.CHEST.value:
+            click_when_target_appears("buttun_x_close")
+            BombScreen.wait_for_leave_screen(BombScreenEnum.CHEST.value)
+            return BombScreen.go_to_heroes(manager) 
         else:
             BombScreen.go_to_home(manager)
             click_when_target_appears("button_heroes")
@@ -87,6 +110,16 @@ class BombScreen:
             click_when_target_appears("identify_home")
             BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
             
+    def go_to_chest(manager):
+        current_screen = BombScreen.get_current_screen()
+        if current_screen == BombScreenEnum.CHEST.value:
+            return
+        else:
+            BombScreen.go_to_treasure_hunt(manager)
+            click_when_target_appears("button_hunt_chest")
+        
+        BombScreen.wait_for_screen(BombScreenEnum.CHEST.value)
+
     def do_print_chest(manager):
         logger_translated("print chest", LoggerEnum.ACTION)
         
@@ -94,16 +127,16 @@ class BombScreen:
             BombScreen.go_to_treasure_hunt(manager)
         
         click_when_target_appears("button_hunt_chest")
-        BombScreen.wait_for_screen(BombScreenEnum.TREASURE_HUNT_CHEST.value)
+        BombScreen.wait_for_screen(BombScreenEnum.CHEST.value)
         image = None
-
+        
         try:
-        if Config.get("screen", "print_full_screen"):
+            if Config.get("screen", "print_full_screen"):
                 image = Image.print_full_screen("chest", "chest_screen_for_geometry")
-        else:
-            image = Image.print_partial_screen("chest", "chest_screen_for_geometry")
-
-        TelegramBot.send_message_with_image(image, "Se liga no farm desse bot, é muito BCOIN! :D")
+            else:
+                image = Image.print_partial_screen("chest", "chest_screen_for_geometry")
+        
+            TelegramBot.send_message_with_image(image, "Se liga no farm desse bot, é muito BCOIN! :D")
         except Exception as e:
             logger(str(e))
             logger("😬 Ohh no! We couldn't send your farm report to Telegram.", color="yellow", force_log_file=True)
