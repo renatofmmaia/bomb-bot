@@ -37,9 +37,8 @@ def logger(message, color="default", force_log_file=False):
     print(formatted_message_colored)
 
     if Config.get('generals','save_log_file') or force_log_file:
-        logger_file = open("./logs/logger.log", "a+", encoding='utf-8')
-        logger_file.write(formatted_message + '\n')
-        logger_file.close()
+        with open("./logs/logger.log", "a+", encoding='utf-8') as logger_file:
+            logger_file.write(formatted_message + '\n')
 
 def logger_translated(text: str, loggerEnum: LoggerEnum):
     if loggerEnum.value == LoggerEnum.ACTION.value:
@@ -51,4 +50,8 @@ def logger_translated(text: str, loggerEnum: LoggerEnum):
     elif loggerEnum.value == LoggerEnum.TIMER_REFRESH.value:
         logger(f"🍺 Refresh {text}.")
     
+def reset_log_file():
+    logger(f"resettin log file")
+    file = open("./logs/logger.log","w")
+    file.close()
     

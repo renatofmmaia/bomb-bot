@@ -2,6 +2,7 @@ generals:
   # 0 - Don't save log
   # 1 - Save log
   save_log_file: 1
+  reset_log_file: 1
   refresh_page_shortcut: 1
 
 hero:

@@ -2,6 +2,7 @@
 
 test.py
 logs/*
+config_profiles/*
 !*/.gitkeep
 ### Python ###
 # Byte-compiled / optimized / DLL files
