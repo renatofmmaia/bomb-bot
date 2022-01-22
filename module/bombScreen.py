@@ -98,13 +98,11 @@ class BombScreen:
         image = None
 
         if Config.get("screen", "print_full_screen"):
-            image = Image.print_screen("chest")
+            image = Image.print_full_screen("chest")
         else:
-            x,y,w,h = Image.get_one_target_position("chest_screen_for_geometry", 0)
-            image = pyautogui.screenshot(region=(x,y,w,h))
-            image.save("chest.png")
+            image = Image.print_partial_screen("chest", "chest_screen_for_geometry")
 
-        TelegramBot.send_message_with_image("chest.png", "Se liga no farm desse bot, é muito BCOIN! :D")
+        TelegramBot.send_message_with_image(image, "Se liga no farm desse bot, é muito BCOIN! :D")
         click_when_target_appears("buttun_x_close")
             
         manager.set_print_chest_refreshed()

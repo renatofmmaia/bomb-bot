@@ -35,10 +35,17 @@ class Image:
             Image.MONITOR_TOP = monitor["top"]
             return sct_img[:, :, :3]
     
-    def print_screen(image_name: str):
-        monitor_screen = Image.screen()
-        image = PIL.Image.fromarray(monitor_screen)
+    def print_full_screen(image_name: str):
         image_name = f'{image_name}.png'
+        monitor_screen = Image.screen()
+        image = pyautogui.screenshot(region=(monitor_screen))
+        image.save(image_name)
+        return image_name
+        
+    def print_partial_screen(image_name: str, target: str):
+        image_name = f'{image_name}.png'
+        x,y,w,h = Image.get_one_target_position(target, 0)
+        image = pyautogui.screenshot(region=(x,y,w,h))
         image.save(image_name)
         return image_name
 
