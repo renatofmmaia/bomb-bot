@@ -3,6 +3,7 @@
 test.py
 logs/*
 config_profiles/*
+chest.png
 !*/.gitkeep
 ### Python ###
 # Byte-compiled / optimized / DLL files

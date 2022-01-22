@@ -35,9 +35,34 @@ class Image:
             Image.MONITOR_TOP = monitor["top"]
             return sct_img[:, :, :3]
     
-    def print_full_screen(image_name: str):
+    def get_monitor_with_target(target):
+        position_bomb = Image.get_one_target_position(target, 0)
+        with mss.mss() as sct:
+            monitors = sct.monitors
+        
+        for monitor in monitors:
+            if len(monitors) == 1:
+                return monitor.values()
+            if Image.position_inside_position(position_bomb, monitor.values()):
+                return monitor.values()
+
+        return monitors[0]
+    
+    def position_inside_position(position_in, position_out):
+        x_in,y_in,w_in,h_in = position_in
+        x_out,y_out,w_out,h_out = position_out
+
+        start_inside_x = x_out <= x_in <= (x_out+w_out)
+        finish_inside_x = x_out <= x_in + w_in <= (x_out + w_out)
+        start_inside_y = y_out <= y_in <= (y_out+h_out)
+        finish_inside_y = y_out <= y_in + h_in <= (y_out + h_out)
+        
+        return start_inside_x and finish_inside_x and start_inside_y and finish_inside_y
+
+
+    def print_full_screen(image_name: str, target):
         image_name = f'{image_name}.png'
-        monitor_screen = Image.screen()
+        monitor_screen = Image.get_monitor_with_target(target)
         image = pyautogui.screenshot(region=(monitor_screen))
         image.save(image_name)
         return image_name

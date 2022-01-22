@@ -97,12 +97,17 @@ class BombScreen:
         BombScreen.wait_for_screen(BombScreenEnum.TREASURE_HUNT_CHEST.value)
         image = None
 
+        try:
         if Config.get("screen", "print_full_screen"):
-            image = Image.print_full_screen("chest")
+                image = Image.print_full_screen("chest", "chest_screen_for_geometry")
         else:
             image = Image.print_partial_screen("chest", "chest_screen_for_geometry")
 
         TelegramBot.send_message_with_image(image, "Se liga no farm desse bot, é muito BCOIN! :D")
+        except Exception as e:
+            logger(str(e))
+            logger("😬 Ohh no! We couldn't send your farm report to Telegram.", color="yellow", force_log_file=True)
+
         click_when_target_appears("buttun_x_close")
             
         manager.set_print_chest_refreshed()
