@@ -18,8 +18,8 @@ screen:
 
 
 threshold:
-    default: 0.7
-    hero_to_work: 0.9
+  default: 0.7
+  hero_to_work: 0.9
 
 
 telegram:

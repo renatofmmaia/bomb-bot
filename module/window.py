@@ -32,7 +32,7 @@ class LinuxWindow:
     def __init__(self, window_id) -> None:
         self.window = window_id
 
-    def activate(self):
+    def activate(self):        
         subprocess.Popen(f"xdotool windowactivate {self.window}", shell=True)
 
 class DefaultWindow:

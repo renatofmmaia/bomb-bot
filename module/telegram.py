@@ -18,9 +18,10 @@ class TelegramBot:
             TelegramBot.BOT = telegram.Bot(token=TelegramBot.TOKEN)
     
     def send_message_with_image(image_path: str, message: str = None):
-        if message:
-            TelegramBot.send_message(message)
         if TelegramBot.ACTIVE:
+            if message:
+                TelegramBot.send_message(message)
+        
             TelegramBot.BOT.send_photo(chat_id=TelegramBot.CHAT_ID, photo=open(image_path, 'rb'))
         
     def send_message(message: str):

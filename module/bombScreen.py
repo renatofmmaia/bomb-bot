@@ -5,7 +5,7 @@ from cv2 import cv2
 
 from .config import Config
 from .image import Image
-from .logger import logger, logger_action_init
+from .logger import LoggerEnum, logger, logger_translated
 from .mouse import *
 from .utils import *
 from .telegram import TelegramBot
@@ -88,7 +88,7 @@ class BombScreen:
             BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
             
     def do_print_chest(manager):
-        logger_action_init("print chest")
+        logger_translated("print chest", LoggerEnum.ACTION)
         
         if BombScreen.get_current_screen() != BombScreenEnum.TREASURE_HUNT.value:
             BombScreen.go_to_treasure_hunt(manager)
@@ -112,28 +112,27 @@ class BombScreen:
 
 class Login:
     def do_login(manager):
-        logger_action_init("login")
+        logger_translated("login", LoggerEnum.ACTION)
 
         login_attepmts = Config.PROPERTIES["screen"]["number_login_attempts"]
 
         logged = False
         for i in range(login_attepmts):
             current_screen = BombScreen.get_current_screen()
-            logger(f"🚩 {BombScreenEnum(current_screen).name} page detected.")
+            logger(f"💫 Bot inicializado em: {BombScreenEnum(current_screen).name}")
             
             if BombScreen.get_current_screen() != BombScreenEnum.LOGIN.value:
-                logger(f"🎉 refreshing page.")
                 refresh_page()
                 BombScreen.wait_for_screen(BombScreenEnum.LOGIN.value)
 
-            logger("🚩 Login page detected.")
+            logger_translated("Login", LoggerEnum.PAGE_FOUND)
 
-            logger("❎ Clicking in wallet button...")
+            logger_translated("wallet", LoggerEnum.BUTTON_CLICK)
             if not click_when_target_appears("button_connect_wallet"):
                 refresh_page()
                 continue
 
-            logger("❎ Clicking in sigin wallet button...")
+            logger_translated("sigin wallet", LoggerEnum.BUTTON_CLICK)
             if not click_when_target_appears("button_connect_wallet_sign"):
                 refresh_page()
                 continue
@@ -152,7 +151,7 @@ class Login:
 
 class Hero:
     def who_needs_work(manager):
-        logger_action_init(f"heroes to work(config: {Config.get('hero','work_mod')})")
+        logger_translated(f"heroes to work(config: {Config.get('hero','work_mod')})", LoggerEnum.ACTION)
 
         BombScreen.go_to_home(manager)
         BombScreen.go_to_heroes(manager)
@@ -173,11 +172,10 @@ class Hero:
         return True
 
     def refresh_hunt(manager):
-        logger_action_init("Refresh huting positions")
+        logger_translated("huting positions", LoggerEnum.TIMER_REFRESH)
 
         BombScreen.go_to_home(manager)
         BombScreen.go_to_treasure_hunt(manager)
 
         manager.set_positions_refreshed()
-        logger("🎉 Refresh huting positions success!")
         return True

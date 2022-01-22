@@ -28,9 +28,6 @@ class BombcryptoManager:
     def __exit__(self, type, value, tb):
         return
 
-    def identify_screen(self):
-        print(BombScreen.get_currentScreen(self.image_targets))
-
     def do_what_needs_to_be_done(self):
             
         refresh_heroes=Config.get('screen', 'refresh_heroes')*60
@@ -44,10 +41,11 @@ class BombcryptoManager:
         refresh_login = Config.get('screen', 'refresh_login')*60
         if (refresh_login and (now() - self.refresh_login > refresh_login)):
             Login.do_login(self)
-            
-        refresh_print_chest = Config.get('telegram', 'refresh_print_chest')*60
-        if (refresh_print_chest and (now() - self.refresh_print_chest > refresh_print_chest)):
-            BombScreen.do_print_chest(self)
+        
+        if Config.get('telegram','token') and  Config.get('telegram','chat_id'):
+            refresh_print_chest = Config.get('telegram', 'refresh_print_chest')*60
+            if (refresh_print_chest and (now() - self.refresh_print_chest > refresh_print_chest)):
+                BombScreen.do_print_chest(self)
         
         return True
   
