@@ -140,10 +140,10 @@ class BombScreen:
         except Exception as e:
             logger(str(e))
             logger("😬 Ohh no! We couldn't send your farm report to Telegram.", color="yellow", force_log_file=True)
-
-        click_when_target_appears("buttun_x_close")
-            
+        
         manager.set_print_chest_refreshed()
+        BombScreen.go_to_treasure_hunt(manager)
+        
 
 
 class Login:

@@ -24,17 +24,16 @@ COLOR = {
 }
 
 
-def logger(message, color="default", force_log_file=False):
+def logger(message, color="default", force_log_file=False, terminal=True):
     color_formatted = COLOR.get(color.lower(), COLOR["default"])
-
     formatted_datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     formatted_message = "[{}] => {}".format(formatted_datetime, message)
     formatted_message_colored = color_formatted + formatted_message + "\033[0m"
-
-    sys.stdout.write(color_formatted + ".")
-    sys.stdout.flush()
-
-    print(formatted_message_colored)
+    
+    if terminal:
+        sys.stdout.write(color_formatted + ".")
+        sys.stdout.flush()
+        print(formatted_message_colored)
 
     if Config.get('generals','save_log_file') or force_log_file:
         with open("./logs/logger.log", "a+", encoding='utf-8') as logger_file:

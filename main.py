@@ -1,4 +1,5 @@
 import sys
+import traceback
 from time import sleep
 
 from module.config import Config
@@ -26,13 +27,13 @@ def main(config_file):
                     with manager:
                         manager.do_what_needs_to_be_done()
             except Exception as e:
-                logger(str(e))
-                logger('An error happened while running the bot, check the log file(logs/logger.log) for more details :(', "red", force_log_file=True)
+                logger(traceback.format_exc(), color="red", force_log_file=True, terminal=False)
+                logger("😬 Ohh no! A error has occurred in the last action. Check the log  file.", color="yellow")
                 
             sleep(5)
-    except Exception as e:
-        logger(str(e))
-        logger('An error happened while running the bot, check the log file(logs/logger.log) for more details :(', "red", force_log_file=True)
+    except Exception:
+        logger(traceback.format_exc(), color="red", force_log_file=True, terminal=False)
+        logger("😬 Ohh no! We couldn't start the bot.", color="red")
     
         
 
