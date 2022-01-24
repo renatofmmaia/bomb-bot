@@ -3,7 +3,7 @@ Bot desenvolvido em python, 100% do código é aberto, para aqueles que tenham c
 O bot em constante atualização, e para que ele continue 100% free, não deixei de realizar sua contribuição, isso nos motiva a continuar!
 
 # Doações
-Faça seus testes, esta usando e ele te ajuda a otimizar seus ganhos? Mostre seu agradecimento em BCOIN/BNB, assim nossa equipe se mantem empenhada em atualizar e trazer novas funcionalidades para a comunidade :D
+Faça seus testes, esta usando e ele te ajuda a otimizar seus ganhos? Mostre seu agradecimento em BCOIN/BNB, assim nossa equipe se mantem empenhada em atualizar e trazer novas funcionalidades para a comunidade :relaxed:
 
 Smart Chain Wallet(BUSD/BNB/BCOIN) 
 
@@ -11,7 +11,7 @@ Smart Chain Wallet(BUSD/BNB/BCOIN)
 
 
 # Funcionalidades
-- Multi Acc, logue a metamask de todas as suas contas, de play no bot e faça coisas melhores na sua vida do que ficar colocando heroes to work. :D
+- Multi Acc, logue a metamask de todas as suas contas, de play no bot e faça coisas melhores na sua vida do que ficar colocando heroes to work. :beers:
 - Integração com Telegram, receba uma print do seu baú a cada X minutos, o tempo é configuravel no arquivo config.yaml.
 - Anti-Broken, mesmo que aconteça um erro não tratado em tela, o bot força atualização da pagina e refaz o login, reiniciando o processo de farm, no pain yes gain!
 - Anti-bloco-Indestrutivel, o bot realiza atualização do navegador(CTRL+F5), reinicializando o farm, assim não te atrasando com os blocos que bugam, a função Refresh Login é configurada por tempo no arquivo config.yaml.
