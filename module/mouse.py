@@ -72,7 +72,7 @@ def move_to(target:str):
 
     return do_with_timeout(move_to_logical)
 
-def scroll_and_click_on_targets(safe_scroll_target: str, repeat: int, distance:float, duration: float, function_between, execute_before=True):
+def scroll_and_click_on_targets(safe_scroll_target: str, repeat: int, distance:float, duration: float, wait:float, function_between, execute_before=True):
     res = []
     if execute_before:
         res.append(function_between())
@@ -82,6 +82,7 @@ def scroll_and_click_on_targets(safe_scroll_target: str, repeat: int, distance:f
         pyautogui.mouseDown(duration=0.1)
         pyautogui.moveRel(0, distance, duration)
         pyautogui.mouseUp(duration=0.1)
+        time.sleep(wait)
         click_when_target_appears(safe_scroll_target)
         res.append(function_between())    
     

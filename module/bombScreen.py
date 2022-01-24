@@ -202,6 +202,7 @@ class Hero:
             repeat=Config.get('screen','scroll_heroes', 'repeat'),
             distance=Config.get('screen','scroll_heroes', 'distance'),
             duration=Config.get('screen','scroll_heroes', 'duration'),
+            wait=Config.get('screen','scroll_heroes', 'wait'),
             function_between=click_betwenn_scrolls
         )
         logger(f"🏃 {sum(n_clicks_per_scrool)} new heros sent to explode everything 💣💣💣.")

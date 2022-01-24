@@ -17,8 +17,9 @@ screen:
   print_full_screen: true
   scroll_heroes:
     repeat: 5
-    distance: -300
-    duration: 2 
+    distance: -200
+    duration: 1 
+    wait: 1.5
 
 threshold:
   default: 0.7
