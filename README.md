@@ -40,6 +40,9 @@ O uso de automação com bots ou auto clickers é liberado, conforme post abaixo
 - Execute o bot executando o cmando, sem aspas: "python main.py"
 - Enjoy the moment :D
 
+## Configurando Telegram
+TODO
+
 # Dúvidas/Sugestões/Parcerias?
 - Entre em contato no discord do Family JOW [Discord](https://discord.gg/9edagMqfgC)
 
