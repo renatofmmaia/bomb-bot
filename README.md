@@ -7,7 +7,7 @@ Faça seus testes, esta usando e ele te ajuda a otimizar seus ganhos? Mostre seu
 
 Smart Chain Wallet(BUSD/BNB/BCOIN) 
 
-### 0xb3e7A42b647A0875682249294107Db182DDFC321
+***0xb3e7A42b647A0875682249294107Db182DDFC321***
 
 
 # Funcionalidades
