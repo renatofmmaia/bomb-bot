@@ -20,7 +20,7 @@ O uso de automação com bots ou auto clickers é liberado, conforme post abaixo
 ![Liberação do bot pelo bombcrypto](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/bot_autoclickers_allowed.png)
 
 # Como utilizar
-Requisitos:
+## Requisitos:
 - Instalação do Python, instale pelo [site oficial](https://www.python.org/downloads/) ou pela [windows store](https://www.microsoft.com/p/python-37/9nj46sx7x90p?activetab=pivot:overviewtab) durante a instalação do python, não se esqueça de marcar a opção add Python to Path.
 - ![Path Python](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/python_path.png)
 - Realizar download do bot, clicando em Code -> Download Zip
@@ -29,7 +29,7 @@ Requisitos:
 - (Linux) Instalar o pacote xdtools (responsável por retornar as janelas de navegador no linux) através do comando: sudo apt-get install xdotool
 - (Linux) Instalar pacote Scrot (responsável pela printscreen no linux) através do comando: sudo apt-get install scrot
 
-Rodando o bot:
+## Rodando o bot:
 - Abra um terminal, se for windows (aperte a tecla do windows + r e digite "cmd").
 - Navegue até a pasta onde o bot foi extraído, exemplo: cd "C:\bomb-bot".
 - Instale as dependências do bot executando o comando, sem aspas: "pip install -r requirements.txt".
@@ -38,7 +38,7 @@ Rodando o bot:
 - Execute o bot executando o cmando, sem aspas: "python main.py"
 - Enjoy the moment :D
 
-Dúvidas/Sugestões/Parcerias?
+# Dúvidas/Sugestões/Parcerias?
 - Entre em contato no discord do Family JOW [Discord](https://discord.gg/9edagMqfgC)
 
 
