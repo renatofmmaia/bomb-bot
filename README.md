@@ -9,36 +9,36 @@ LINK da carteira
 
 
 # Funcionalidades
-- Multiacc, logue todas as suas contas de play e faça coisas melhores na sua vida do que ficar colocando heroes to work. :D
-- Integração com Telegram, receba uma print do seu bau a cada X minutos, o tempo é configuravel no arquivo config.yaml.
+- Multi Acc, logue todas as suas contas de play e faça coisas melhores na sua vida do que ficar colocando heroes to work. :D
+- Integração com Telegram, receba uma print do seu baú a cada X minutos, o tempo é configuravel no arquivo config.yaml.
 - Anti-Broken, mesmo que aconteça um erro não tratado em tela, o bot força atualização da pagina e refaz o login, reiniciando o processo de farm, no pain yes gain!
 - Anti-bloco-Indestrutivel, o bot realiza atualização do navegador(CTRL+F5), reinicializando o farm, assim não te atrasando com os blocos que bugam, a função Refresh Login é configurada por tempo no arquivo config.yaml.
-- Arquivo de configuração facil, para que você mesmo determine como o bot deve funcionar.
+- Arquivo de configuração fácil, para que você mesmo determine como o bot deve funcionar.
 
 # Automação com uso de bots no Bombcrypto é permitido?
-O uso de automação com bots ou auto cliquers é liberado, conforme post abaixo no discord oficial do bombcrypto, facilmente encontrado nos canais moderados de informações
+O uso de automação com bots ou auto clickers é liberado, conforme post abaixo no discord oficial do bombcrypto, facilmente encontrado nos canais moderados de informações
 IMG
 
 # Como utilizar
 Requisitos:
 - Instalação do Python, instale pelo [site](https://www.python.org/downloads/) ou pela [windows store](https://www.microsoft.com/p/python-37/9nj46sx7x90p?activetab=pivot:overviewtab)
-  Durante a instalação do python, não se esqueca de marcar a opção add Python to Path
+  Durante a instalação do python, não se esqueça de marcar a opção add Python to Path
 IMG PATH
 - Realizar download do bot, clicando em Code -> Download Zip
 - Descompactar o bot na pasta em que desejar
-- (Linux) Instalar o pacote xdtools(responsável por retornar as janelas de navegador no linux) através do comando: sudo apt-get install xdotool
-- (Linux) Instalar pacote Scrot (responsavel pela printscreen no linux) através do comando: sudo apt-get install scrot
+- (Linux) Instalar o pacote xdtools (responsável por retornar as janelas de navegador no linux) através do comando: sudo apt-get install xdotool
+- (Linux) Instalar pacote Scrot (responsável pela printscreen no linux) através do comando: sudo apt-get install scrot
 
 Rodando o bot:
 - Abra um terminal, se for windows (aperte a tecla do windows + r e digite "cmd")
-- Navegue até a posta onde o bot esta, exemplo: cd "C:\bomb-bot"
+- Navegue até a pasta onde o bot foi extraído, exemplo: cd "C:\bomb-bot"
 - Instale as dependências do bot executando o comando: pip install -r requirements.txt
-- Abra seu navegador acesse o link: https://app.bombcrypto.io/webgl/index.html este link é oficial do bomb e abre a interface sem varios blocos de informação, para que a tela fique limpa para o reconhecimento de imagens do bot.
-- Faça o primeiro acesso na sua metamask, pois o bot realiza o login apenas se a mesma ja estiver conectada.
+- Abra seu navegador acesse o link: https://app.bombcrypto.io/webgl/index.html este link é oficial do bomb e abre a interface sem vários blocos de informação, para que a tela fique limpa para o reconhecimento de imagens do bot.
+- Faça o primeiro acesso na sua metamask, pois o bot realiza o login apenas se a mesma já estiver conectada.
 - Execute o bot executando o cmando: python main.py
 - Enjoy the moment :D
 
-Duvidas/Sugestões/Parcerias?
+Dúvidas/Sugestões/Parcerias?
 - Entre em contato no discord do Family JOW [Discord](https://discord.gg/9edagMqfgC)
 
 
