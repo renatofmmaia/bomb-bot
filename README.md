@@ -48,7 +48,7 @@ O uso de automação com bots ou auto clickers é liberado, conforme post abaixo
 - Finalizando você vai ver uma mensagem contendo os dados do bot que vc criou, copie o Token e insira no arquivo de configuração, config.yaml
 - O 2º parametro a ser configurado é o chat_id, para isso, siga os passos abaixo:
 - Criei um grupo no telegram, e adicione o bot que você acabou de criar, informando o username para encontra-lo.
-- Com o grupo criado, acesse o link a seguir, alterando o TOKEN na url, removendo as aspas("): https://api.telegram.org/bot"SEUTOKEN"/getUpdates
+- Com o grupo criado, acesse o link a seguir, alterando o TOKEN na url, pelo o que você acabou de criar: https://api.telegram.org/botSEUTOKEN/getUpdates
 - Vai ser exibido na tela um JSON, procure por "chat":"id", geralmente esse valor começa com o sinal de menos(-) e altere no arquivo config.yaml chat_id.
 - Exemplo chat_id
 - ![chatid](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/chat_id.png)
