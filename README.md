@@ -3,24 +3,27 @@ Bot desenvolvido em python, 100% do código é aberto, para aqueles que tenham c
 O bot em constante atualização, e para que ele continue 100% free, não deixei de realizar sua contribuição, isso nos motiva a continuar!
 
 # Doações
-Faça seus testes, esta usando e ele te ajuda a otimizar seus ganhos? Mostre seu agradecimento em BCOIN/BNB, assim nossa equipe se mantem empenhada em atualizar e trazer novas funcionalidades para a comunidade :D
+Faça seus testes, esta usando e ele te ajuda a otimizar seus ganhos? Mostre seu agradecimento em BUSD/BNB/BCOIN, assim nossa equipe se mantem empenhada em atualizar e trazer novas funcionalidades para a comunidade :relaxed:
 
-LINK da carteira
+Smart Chain Wallet(BUSD/BNB/BCOIN) 
+
+***0xb3e7A42b647A0875682249294107Db182DDFC321***
 
 
 # Funcionalidades
-- Multi Acc, logue a metamask de todas as suas contas, de play no bot e faça coisas melhores na sua vida do que ficar colocando heroes to work. :D
+- Multi Acc, logue a metamask de todas as suas contas, de play no bot e faça coisas melhores na sua vida do que ficar colocando heroes to work. :beers:
 - Integração com Telegram, receba uma print do seu baú a cada X minutos, o tempo é configuravel no arquivo config.yaml.
 - Anti-Broken, mesmo que aconteça um erro não tratado em tela, o bot força atualização da pagina e refaz o login, reiniciando o processo de farm, no pain yes gain!
 - Anti-bloco-Indestrutivel, o bot realiza atualização do navegador(CTRL+F5), reinicializando o farm, assim não te atrasando com os blocos que bugam, a função Refresh Login é configurada por tempo no arquivo config.yaml.
-- Arquivo de configuração fácil, para que você mesmo determine como o bot deve funcionar.
+- Heroes Green Bar, seleciona apenas herois com barra verde, otimizando o seu farm.
+- Arquivo de configuração, para que você mesmo determine como o bot deve funcionar (./config.yaml).
 
 # Automação com uso de bots no Bombcrypto é permitido?
 O uso de automação com bots ou auto clickers é liberado, conforme post abaixo no discord oficial do bombcrypto, facilmente encontrado nos canais moderados de informações
 ![Liberação do bot pelo bombcrypto](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/bot_autoclickers_allowed.png)
 
 # Como utilizar
-Requisitos:
+###  Requisitos:
 - Instalação do Python, instale pelo [site oficial](https://www.python.org/downloads/) ou pela [windows store](https://www.microsoft.com/p/python-37/9nj46sx7x90p?activetab=pivot:overviewtab) durante a instalação do python, não se esqueça de marcar a opção add Python to Path.
 - ![Path Python](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/python_path.png)
 - Realizar download do bot, clicando em Code -> Download Zip
@@ -29,7 +32,7 @@ Requisitos:
 - (Linux) Instalar o pacote xdtools (responsável por retornar as janelas de navegador no linux) através do comando: sudo apt-get install xdotool
 - (Linux) Instalar pacote Scrot (responsável pela printscreen no linux) através do comando: sudo apt-get install scrot
 
-Rodando o bot:
+###  Rodando o bot:
 - Abra um terminal, se for windows (aperte a tecla do windows + r e digite "cmd").
 - Navegue até a pasta onde o bot foi extraído, exemplo: cd "C:\bomb-bot".
 - Instale as dependências do bot executando o comando, sem aspas: "pip install -r requirements.txt".
@@ -38,7 +41,10 @@ Rodando o bot:
 - Execute o bot executando o cmando, sem aspas: "python main.py"
 - Enjoy the moment :D
 
-Dúvidas/Sugestões/Parcerias?
+###  Configurando Telegram
+TODO
+
+# Dúvidas/Sugestões/Parcerias?
 - Entre em contato no discord do Family JOW [Discord](https://discord.gg/9edagMqfgC)
 
 
