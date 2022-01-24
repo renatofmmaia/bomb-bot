@@ -56,5 +56,5 @@ O uso de automação com bots ou auto clickers é liberado, conforme post abaixo
 - ![config trelegram](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/token_chat_id.png)
 
 # Contato/Sugestão/Bug
-- https://github.com/renatofmmaia/bomb-bot/issues/new
+- Issues github: https://github.com/renatofmmaia/bomb-bot/issues/new
 
