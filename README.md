@@ -42,10 +42,19 @@ O uso de automação com bots ou auto clickers é liberado, conforme post abaixo
 - Enjoy the moment :D
 
 ###  Configurando Telegram
-TODO
+- Em seu telegram, iniciei uma conversa com @BotFather
+- Clique em Start, e quando abrir as opções, clique em "/newbot"
+- Em seguida informe um nome e depois um username para o bot, lembrando que username tem que terminar com "_bot" no final, exemplo "meubomb_bot"
+- Finalizando você vai ver uma mensagem contendo os dados do bot que vc criou, copie o Token e insira no arquivo de configuração, config.yaml
+- O 2º parametro a ser configurado é o chat_id, para isso, siga os passos abaixo:
+- Criei um grupo no telegram, e adicione o bot que você acabou de criar, informando o username para encontra-lo.
+- Com o grupo criado, acesse o link a seguir, alterando o TOKEN na url, removendo as aspas("): https://api.telegram.org/bot"SEUTOKEN"/getUpdates
+- Vai ser exibido na tela um JSON, procure por "chat":"id", geralmente esse valor começa com o sinal de menos(-) e altere no arquivo config.yaml chat_id.
+- Exemplo chat_id
+- ![chatid](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/chat_id.png)
+- Config.yaml que você tem que configurar
+- ![config trelegram](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/token_chat_id.png)
 
-# Dúvidas/Sugestões/Parcerias?
-- Entre em contato no discord do Family JOW [Discord](https://discord.gg/9edagMqfgC)
-
-
+# Contato/Sugestão/Bug
+- https://github.com/renatofmmaia/bomb-bot/issues/new
 
