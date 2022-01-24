@@ -15,7 +15,8 @@ Smart Chain Wallet(BUSD/BNB/BCOIN)
 - Integração com Telegram, receba uma print do seu baú a cada X minutos, o tempo é configuravel no arquivo config.yaml.
 - Anti-Broken, mesmo que aconteça um erro não tratado em tela, o bot força atualização da pagina e refaz o login, reiniciando o processo de farm, no pain yes gain!
 - Anti-bloco-Indestrutivel, o bot realiza atualização do navegador(CTRL+F5), reinicializando o farm, assim não te atrasando com os blocos que bugam, a função Refresh Login é configurada por tempo no arquivo config.yaml.
-- Arquivo de configuração fácil, para que você mesmo determine como o bot deve funcionar.
+- Heroes Green Bar, seleciona apenas herois com barra verde, otimizando o seu farm.
+- Arquivo de configuração, para que você mesmo determine como o bot deve funcionar (./config.yaml).
 
 # Automação com uso de bots no Bombcrypto é permitido?
 O uso de automação com bots ou auto clickers é liberado, conforme post abaixo no discord oficial do bombcrypto, facilmente encontrado nos canais moderados de informações
