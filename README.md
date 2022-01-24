@@ -3,11 +3,11 @@ Bot desenvolvido em python, 100% do código é aberto, para aqueles que tenham c
 O bot em constante atualização, e para que ele continue 100% free, não deixei de realizar sua contribuição, isso nos motiva a continuar!
 
 # Doações
-Faça seus testes, esta usando e ele te ajuda a otimizar seus ganhos? Mostre seu agradecimento em BCOIN/BNB, assim nossa equipe se mantem empenhada em atualizar e trazer novas funcionalidades para a comunidade :relaxed:
+Faça seus testes, esta usando e ele te ajuda a otimizar seus ganhos? Mostre seu agradecimento em BUSD/BNB/BCOIN, assim nossa equipe se mantem empenhada em atualizar e trazer novas funcionalidades para a comunidade :relaxed:
 
 Smart Chain Wallet(BUSD/BNB/BCOIN) 
 
-**0xb3e7A42b647A0875682249294107Db182DDFC321**
+### 0xb3e7A42b647A0875682249294107Db182DDFC321
 
 
 # Funcionalidades
