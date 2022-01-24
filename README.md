@@ -17,25 +17,25 @@ LINK da carteira
 
 # Automação com uso de bots no Bombcrypto é permitido?
 O uso de automação com bots ou auto clickers é liberado, conforme post abaixo no discord oficial do bombcrypto, facilmente encontrado nos canais moderados de informações
-IMG
+![Liberação do bot pelo bombcrypto](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/bot_autoclickers_allowed.png)
 
 # Como utilizar
 Requisitos:
-- Instalação do Python, instale pelo [site oficial](https://www.python.org/downloads/) ou pela [windows store](https://www.microsoft.com/p/python-37/9nj46sx7x90p?activetab=pivot:overviewtab)
-  Durante a instalação do python, não se esqueça de marcar a opção add Python to Path
-IMG PATH
+- Instalação do Python, instale pelo [site oficial](https://www.python.org/downloads/) ou pela [windows store](https://www.microsoft.com/p/python-37/9nj46sx7x90p?activetab=pivot:overviewtab) durante a instalação do python, não se esqueça de marcar a opção add Python to Path.
+- ![Path Python](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/python_path.png)
 - Realizar download do bot, clicando em Code -> Download Zip
+- ![download do bot](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/bot_download.png)
 - Descompactar o bot na pasta em que desejar
 - (Linux) Instalar o pacote xdtools (responsável por retornar as janelas de navegador no linux) através do comando: sudo apt-get install xdotool
 - (Linux) Instalar pacote Scrot (responsável pela printscreen no linux) através do comando: sudo apt-get install scrot
 
 Rodando o bot:
-- Abra um terminal, se for windows (aperte a tecla do windows + r e digite "cmd")
-- Navegue até a pasta onde o bot foi extraído, exemplo: cd "C:\bomb-bot"
-- Instale as dependências do bot executando o comando: pip install -r requirements.txt
+- Abra um terminal, se for windows (aperte a tecla do windows + r e digite "cmd").
+- Navegue até a pasta onde o bot foi extraído, exemplo: cd "C:\bomb-bot".
+- Instale as dependências do bot executando o comando, sem aspas: "pip install -r requirements.txt".
 - Abra seu navegador acesse o link: https://app.bombcrypto.io/webgl/index.html este link é oficial do bomb e abre a interface sem vários blocos de informação, para que a tela fique limpa para o reconhecimento de imagens do bot.
 - Faça o primeiro acesso na sua metamask, pois o bot realiza o login apenas se a mesma já estiver conectada.
-- Execute o bot executando o cmando: python main.py
+- Execute o bot executando o cmando, sem aspas: "python main.py"
 - Enjoy the moment :D
 
 Dúvidas/Sugestões/Parcerias?
