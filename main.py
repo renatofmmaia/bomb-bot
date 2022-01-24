@@ -2,11 +2,16 @@ import sys
 import traceback
 from time import sleep
 
+import requests
+from packaging import version
+
 from module.config import Config
 from module.image import Image
-from module.manager import create_bombcrypto_managers
 from module.logger import logger, reset_log_file
+from module.manager import create_bombcrypto_managers
 from module.telegram import TelegramBot
+
+__version__ = "0.0.1"
 
 
 def main(config_file):
@@ -16,8 +21,28 @@ def main(config_file):
         Image.load_targets()
         TelegramBot.load_config()
         
-        if Config.get('generals','reset_log_file'):
+        if Config.get("generals", "reset_log_file"):
             reset_log_file()
+
+        r = requests.get(
+            "https://api.github.com/gists/715eabaa3bca5ca70709a6397b806e86"
+        )
+        if r.ok:
+            data = r.json()
+
+            start_message = data["files"]["start_message"]["content"]
+            logger(start_message)
+
+            last_version = data["files"]["version"]["content"].strip()
+            version_installed = version.parse(__version__)
+            logger(f"Current version: {version_installed}")
+
+            if version.parse(last_version) > version.parse(__version__):
+                logger(f"New version available: {last_version}.")
+                update_message = data["files"]["update_message"]["content"]
+                logger(update_message)
+        else:
+            logger("Unable to check for updates.")
 
         bomb_crypto_managers = create_bombcrypto_managers()
         logger(f"{len(bomb_crypto_managers)} Bombcrypto window (s) found")
@@ -27,15 +52,22 @@ def main(config_file):
                     with manager:
                         manager.do_what_needs_to_be_done()
             except Exception as e:
-                logger(traceback.format_exc(), color="red", force_log_file=True, terminal=False)
-                logger("😬 Ohh no! A error has occurred in the last action. Check the log  file.", color="yellow")
-                
+                logger(
+                    traceback.format_exc(),
+                    color="red",
+                    force_log_file=True,
+                    terminal=False,
+                )
+                logger(
+                    "😬 Ohh no! A error has occurred in the last action. Check the log  file.",
+                    color="yellow",
+                )
+
             sleep(5)
     except Exception:
         logger(traceback.format_exc(), color="red", force_log_file=True, terminal=False)
         logger("😬 Ohh no! We couldn't start the bot.", color="red")
-    
-        
+
 
 if __name__ == "__main__":
     config_path = "config.yaml"
@@ -44,5 +76,4 @@ if __name__ == "__main__":
         config_file = sys.argv[1]
         config_path = f"config_profiles/{config_file}.yaml"
 
-             
     main(config_path)
