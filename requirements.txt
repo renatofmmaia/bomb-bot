@@ -1,9 +1,8 @@
-black==21.12b0
-isort==5.10.1
 mss==6.1.0
 opencv-python==4.5.4.60
+packaging==21.3
 pillow==9.0.0
-pip-chill==1.0.1
 pyautogui==0.9.53
+python-telegram-bot==13.10
 pyyaml==6.0
-python-telegram-bot
+requests==2.27.1

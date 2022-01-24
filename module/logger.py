@@ -50,7 +50,6 @@ def logger_translated(text: str, loggerEnum: LoggerEnum):
         logger(f"🍺 Refresh {text}.")
     
 def reset_log_file():
-    logger(f"resettin log file")
     file = open("./logs/logger.log","w")
     file.close()
     
