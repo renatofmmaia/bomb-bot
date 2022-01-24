@@ -1,6 +1,6 @@
 # Bombcrypto Bot [Family JOW]
-Bot desenvolvido em python, 100% do código é aberto, para aqueles que tenham conhecimento validarem que não existe nenhum código malicioso, o bot apenas trabalha com reconhecimento de imagens para poder gerenciar as interações na tela do bombcrypto.
-O bot esta em constante desenvolvimento, para que ele continue 100% free, não deixei de realizar sua contribuição, isso nos motiva a continuar!
+Bot desenvolvido em python, 100% do código é aberto, para aqueles que tenham conhecimento validarem que não existe nenhum código malicioso, o bot apenas trabalha com reconhecimento de imagens para poder gerenciar as interações na tela do bombcrypto, compatível com Windows e Linux.
+O bot em constante atualização, e para que ele continue 100% free, não deixei de realizar sua contribuição, isso nos motiva a continuar!
 
 # Doações
 Faça seus testes, esta usando e ele te ajuda a otimizar seus ganhos? Mostre seu agradecimento em BCOIN/BNB, assim nossa equipe se mantem empenhada em atualizar e trazer novas funcionalidades para a comunidade :D
@@ -21,7 +21,7 @@ IMG
 
 # Como utilizar
 Requisitos:
-- Instalação do Python, instale pelo [site](https://www.python.org/downloads/) ou pela [windows store](https://www.microsoft.com/p/python-37/9nj46sx7x90p?activetab=pivot:overviewtab)
+- Instalação do Python, instale pelo [site oficial](https://www.python.org/downloads/) ou pela [windows store](https://www.microsoft.com/p/python-37/9nj46sx7x90p?activetab=pivot:overviewtab)
   Durante a instalação do python, não se esqueça de marcar a opção add Python to Path
 IMG PATH
 - Realizar download do bot, clicando em Code -> Download Zip
