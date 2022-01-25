@@ -31,10 +31,12 @@ class BombScreen:
                 return True
             else:
                 return None
-
-        return do_with_timeout(
+        res = do_with_timeout(
             check_screen, time_beteween=time_beteween, timeout=timeout
         )
+        if res is None:
+            raise Exception(f'Timeout waiting for screen {BombScreenEnum(bombScreenEnum).name}.')
+        return 
     
     def wait_for_leave_screen(
         bombScreenEnum, time_beteween: float = 0.5, timeout: float = 60
@@ -181,7 +183,7 @@ class Login:
                 logged = True
                 break
 
-        manager.set_logged(logged)
+        manager.set_logged()
         return logged
 
 
