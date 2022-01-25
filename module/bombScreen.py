@@ -108,7 +108,7 @@ class BombScreen:
         else:
             BombScreen.go_to_home(manager)
             click_when_target_appears("identify_home")
-            BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
+            BombScreen.wait_for_screen(BombScreenEnum.TREASURE_HUNT.value)
             
     def go_to_chest(manager):
         current_screen = BombScreen.get_current_screen()
