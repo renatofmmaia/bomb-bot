@@ -1,33 +1,55 @@
+# DONT CHANGE THIS CONFIGS
+threshold:
+  default: 0.7
+  hero_to_work: 0.9
+# -------------------------
+
 generals:
-  # 0 - Don't save log
-  # 1 - Save log
-  save_log_file: 1
+  # Save all logs in file logs/logger.txt
+  #   0: Don't save log
+  #   1: Save log
+  save_log_file: 0
   reset_log_file: 1
+
+  # Which hotkey is used to refresh the browser
+  #   1: CTRL + F5
+  #   2: CTRL + SHIFT + R
   refresh_page_shortcut: 1
 
 hero:
+  # Propertie that identifies heros to work
+  #   green: only heros with green bar
   work_mod: "green"
 
 
 screen:
+  # Number of login attempts
   number_login_attempts: 3
+  # Time to update hero positions on farm screen
   refresh_hunt: 7
+  # Timer to check who needs to go back to work
   refresh_heroes: 25
-  refresh_login: 0
+  # Timer to force browser refresh
+  refresh_login: 60
+  # Chest photo type, for sending via Telegram
+  #   true: The entire screen where the browser tab will be
+  #   false: Just chest screen with your coins
   print_full_screen: true
+
   scroll_heroes:
+    # total number of times the screen scrolls down
     repeat: 5
+    # distance when scrolling down
     distance: -200
+    # duration of scrolling
     duration: 1 
+    # time waiting when scrolling down
     wait: 1.5
 
-threshold:
-  default: 0.7
-  hero_to_work: 0.9
-
-
 telegram:
+  # Settings for telegram integration 
   token: ""
   chat_id: 0
+  # Timer when your chest image is sent to telegram
   refresh_print_chest: 60
   

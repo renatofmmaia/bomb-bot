@@ -38,7 +38,7 @@ def main(config_file):
             logger(f"Current version: {version_installed}")
 
             if version.parse(last_version) > version.parse(__version__):
-                logger(f"New version available: {last_version}.")
+                logger(f"New version available: {last_version}.", "blue")
                 update_message = data["files"]["update_message"]["content"]
                 logger(update_message)
         else:
