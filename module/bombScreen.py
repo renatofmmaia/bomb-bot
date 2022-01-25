@@ -110,18 +110,16 @@ class BombScreen:
         else:
             BombScreen.go_to_home(manager)
             click_when_target_appears("identify_home")
-            BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
+            BombScreen.wait_for_screen(BombScreenEnum.TREASURE_HUNT.value)
             
     def go_to_chest(manager):
-        current_screen = BombScreen.get_current_screen()
-        if current_screen == BombScreenEnum.CHEST.value:
+        if BombScreen.get_current_screen() == BombScreenEnum.CHEST.value:
             return
         else:
             BombScreen.go_to_treasure_hunt(manager)
             click_when_target_appears("button_hunt_chest")
-        
-        BombScreen.wait_for_screen(BombScreenEnum.CHEST.value)
-
+            BombScreen.wait_for_screen(BombScreenEnum.CHEST.value)
+            
     def do_print_chest(manager):
         logger_translated("print chest", LoggerEnum.ACTION)
         
@@ -130,15 +128,14 @@ class BombScreen:
         
         click_when_target_appears("button_hunt_chest")
         BombScreen.wait_for_screen(BombScreenEnum.CHEST.value)
-        image = None
-        
+        image = None      
         try:
             if Config.get("screen", "print_full_screen"):
                 image = Image.print_full_screen("chest", "chest_screen_for_geometry")
             else:
                 image = Image.print_partial_screen("chest", "chest_screen_for_geometry")
         
-            TelegramBot.send_message_with_image(image, "Se liga no farm desse bot, é muito BCOIN! :D")
+            TelegramBot.send_message_with_image(image, "Se liga no BCOIN desse baú, não deixe de contribuir com a evolução do bot :D")
         except Exception as e:
             logger(str(e))
             logger("😬 Ohh no! We couldn't send your farm report to Telegram.", color="yellow", force_log_file=True)
