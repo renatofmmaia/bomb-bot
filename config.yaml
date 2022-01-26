@@ -8,7 +8,7 @@ generals:
   # Save all logs in file logs/logger.txt
   #   0: Don't save log
   #   1: Save log
-  save_log_file: 0
+  save_log_file: 1
   reset_log_file: 1
 
   # Which hotkey is used to refresh the browser
@@ -19,7 +19,7 @@ generals:
 hero:
   # Propertie that identifies heros to work
   #   green: only heros with green bar
-  work_mod: "green"
+  work_mod: 40
 
 
 screen:

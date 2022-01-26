@@ -190,11 +190,20 @@ class Hero:
 
         BombScreen.go_to_home(manager)
         BombScreen.go_to_heroes(manager)
+        def filter_health(position):
+            x, y, w, h = position
+            index = Image.get_max_result_between(
+                targets=["hero_bar_0", "hero_bar_20", "hero_bar_40", "hero_bar_60", "hero_bar_80", "hero_bar_100"],
+                y_limits=[y, y+h],
+                )
+            return (index * 20) >= Config.get("hero", "work_mod")
+
+
         def click_betwenn_scrolls():
             return click_on_multiple_targets(
                             "button_work_unchecked",
                             not_click="button_work_checked",
-                            filter_func=Image.filter_by_green_bar,
+                            filter_func=filter_health,
                         )
         n_clicks_per_scrool = scroll_and_click_on_targets(
             safe_scroll_target="hero_bar_vertical",

@@ -11,10 +11,11 @@ from .utils import *
 def click_on_multiple_targets(target: str, not_click:str= None, filter_func = None):
     """click in a list of target. Returns number of clicks"""
     targets_positions = Image.get_target_positions(target, not_target=not_click)
+    n_before = (len(targets_positions))
+    logger(f"found {n_before} targets")
     if filter_func is not None:
         targets_positions = filter(filter_func, targets_positions)
-
-
+    logger(f"{n_before - len(list(targets_positions))} targets filtered")
     click_count = 0
     for x, y, w, h in targets_positions:
         x, y, move_duration, click_duration, time_between  = randomize_values(x, w, y, h)

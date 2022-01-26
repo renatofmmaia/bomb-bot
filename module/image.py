@@ -119,6 +119,25 @@ class Image:
         
         return xloc[0], yloc[0], width, height
 
+    def get_max_result_between(targets:list, y_limits=None, x_limits=None, threshold:float=0):
+        index = 0
+        max_result = 0
+        for i, target in enumerate(targets):
+            screen = Image.screen()
+            if y_limits is not None:
+                y,h = y_limits
+                screen= screen[y:y+h, :]
+            if x_limits is not None:
+                x,w = x_limits
+                screen= screen[:, x:x+w]
+            result = cv2.matchTemplate(screen, Image.TARGETS[target], cv2.TM_CCOEFF_NORMED)
+            if result.max() > max_result:
+                max_result = result.max()
+                index = i
+        
+        return index
+
+
     def filter_by_green_bar(item):
         x,y,w,h = item
         y_increment = round(h*0.1)
