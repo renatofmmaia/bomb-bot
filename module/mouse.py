@@ -11,10 +11,11 @@ from .utils import *
 def click_on_multiple_targets(target: str, not_click:str= None, filter_func = None):
     """click in a list of target. Returns number of clicks"""
     targets_positions = Image.get_target_positions(target, not_target=not_click)
+    n_before = (len(targets_positions))
+    logger(f"found {n_before} targets")
     if filter_func is not None:
         targets_positions = filter(filter_func, targets_positions)
-
-
+    logger(f"{n_before - len(list(targets_positions))} targets filtered")
     click_count = 0
     for x, y, w, h in targets_positions:
         x, y, move_duration, click_duration, time_between  = randomize_values(x, w, y, h)
@@ -40,6 +41,13 @@ def click_one_target(target: str):
         # logger(f"Error: {e}")
     
     return result
+
+def click_randomly_in_position(x, y, w, h):
+    x, y, move_duration, click_duration, time_between  = randomize_values(x, w, y, h)
+    pyautogui.moveTo(x, y, duration=move_duration, tween=pyautogui.easeOutQuad)
+    time.sleep(time_between)
+    pyautogui.click(duration=click_duration)
+
 
 def click_when_target_appears(target: str, time_beteween: float = 0.5, timeout: float = 10):
     """ Click in a target when it appears.
