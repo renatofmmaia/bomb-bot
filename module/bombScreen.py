@@ -187,31 +187,43 @@ class Login:
 class Hero:
     def who_needs_work(manager):
         logger_translated(f"heroes to work(config: {Config.get('hero','work_mod')})", LoggerEnum.ACTION)
+        
+        heroes_bar = ["hero_bar_0", "hero_bar_20", "hero_bar_40", "hero_bar_60", "hero_bar_80", "hero_bar_100"]
+        scale_factor = 20
 
         BombScreen.go_to_home(manager)
         BombScreen.go_to_heroes(manager)
-        def filter_health(position):
-            x, y, w, h = position
-            index = Image.get_max_result_between(
-                targets=["hero_bar_0", "hero_bar_20", "hero_bar_40", "hero_bar_60", "hero_bar_80", "hero_bar_100"],
-                y_limits=[y, y+h],
-                )
-            return (index * 20) >= Config.get("hero", "work_mod")
+        
+        def click_available_heroes():
+            n_clicks = 0
+            screen_img = Image.screen()
+            buttons_position = Image.get_target_positions("button_work_unchecked", not_target="button_work_checked", screen_image=screen_img)
+            logger(f"{len(buttons_position)} Heroes found.")
 
+            for button_position in buttons_position:
+                x,y,w,h = button_position
+                search_img = screen_img[y:y+h+5, :, :]
+                compare_values = [Image.get_compare_result(search_img, Image.TARGETS[bar]).max() for bar in heroes_bar]
+                index, max_value= 0, 0
 
-        def click_betwenn_scrolls():
-            return click_on_multiple_targets(
-                            "button_work_unchecked",
-                            not_click="button_work_checked",
-                            filter_func=filter_health,
-                        )
+                for i, value in enumerate(compare_values):
+                    index, max_value = (i, value) if value > max_value else (index, max_value)
+                logger(f"life: {index*scale_factor} %.")
+                if index*scale_factor >= Config.get('hero', 'work_mod'):
+                    click_randomly_in_position(x,y,w,h)
+                    n_clicks += 1
+            
+            logger(f"Detected {n_clicks} in fight conditions.")
+            
+            return n_clicks
+
         n_clicks_per_scrool = scroll_and_click_on_targets(
             safe_scroll_target="hero_bar_vertical",
             repeat=Config.get('screen','scroll_heroes', 'repeat'),
             distance=Config.get('screen','scroll_heroes', 'distance'),
             duration=Config.get('screen','scroll_heroes', 'duration'),
             wait=Config.get('screen','scroll_heroes', 'wait'),
-            function_between=click_betwenn_scrolls
+            function_between=click_available_heroes
         )
         logger(f"🏃 {sum(n_clicks_per_scrool)} new heros sent to explode everything 💣💣💣.")
         Hero.refresh_hunt(manager)

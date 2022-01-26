@@ -48,6 +48,10 @@ class Image:
 
         return monitors[0]
     
+    def get_compare_result(img1, img2):
+        return cv2.matchTemplate(img1, img2, cv2.TM_CCOEFF_NORMED)
+
+    
     def position_inside_position(position_in, position_out):
         x_in,y_in,w_in,h_in = position_in
         x_out,y_out,w_out,h_out = position_out
@@ -125,8 +129,7 @@ class Image:
         for i, target in enumerate(targets):
             screen = Image.screen()
             if y_limits is not None:
-                y,h = y_limits
-                screen= screen[y:y+h, :]
+                screen= screen[y_limits[0]:y_limits[1], :]
             if x_limits is not None:
                 x,w = x_limits
                 screen= screen[:, x:x+w]

@@ -19,7 +19,7 @@ generals:
 hero:
   # Propertie that identifies heros to work
   #   green: only heros with green bar
-  work_mod: 40
+  work_mod: 60
 
 
 screen:
