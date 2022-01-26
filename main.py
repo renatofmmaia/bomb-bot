@@ -5,6 +5,7 @@ from time import sleep
 import requests
 from packaging import version
 
+from module.bombScreen import BombScreen, BombScreenEnum
 from module.config import Config
 from module.image import Image
 from module.logger import logger, reset_log_file
@@ -31,26 +32,41 @@ def main(config_file):
             data = r.json()
 
             start_message = data["files"]["start_message"]["content"]
-            logger(start_message)
+            logger(start_message, color="cyan", datetime=False)
 
             last_version = data["files"]["version"]["content"].strip()
             version_installed = version.parse(__version__)
-            logger(f"Current version: {version_installed}", "blue")
+            logger(f"-> Current version: {version_installed}", color="cyan", datetime=False)
 
             if version.parse(last_version) > version.parse(__version__):
-                logger(f"New version available: {last_version}.", "green")
+                logger("-----------------------------------------------", color="green", datetime=False)
+                logger(f"New version available: {last_version}.", color="green", datetime=False)
                 update_message = data["files"]["update_message"]["content"]
-                logger(update_message)
+                logger(update_message, color="green", datetime=False)
+                logger("-----------------------------------------------", color="green", datetime=False)
         else:
             logger("Unable to check for updates.")
 
         bomb_crypto_managers = create_bombcrypto_managers()
         logger(f"{len(bomb_crypto_managers)} Bombcrypto window (s) found")
+        bomb_browser_count = 1
+        show_initial_screen_message = True
         while True:
             try:
                 for manager in bomb_crypto_managers:
+                    current_screen = BombScreen.get_current_screen()
+                    
+                    if show_initial_screen_message:
+                        logger(f"💫 Bombcrypto window[{bomb_browser_count}] inicializado em: {BombScreenEnum(current_screen).name}")
+                    
                     with manager:
-                        manager.do_what_needs_to_be_done()
+                        manager.do_what_needs_to_be_done(current_screen)
+                    
+                    if bomb_browser_count == len(bomb_crypto_managers):
+                        bomb_browser_count = 1
+                        show_initial_screen_message = False
+                    else:
+                        bomb_browser_count += 1
             except Exception as e:
                 logger(
                     traceback.format_exc(),
