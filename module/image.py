@@ -48,6 +48,10 @@ class Image:
 
         return monitors[0]
     
+    def get_compare_result(img1, img2):
+        return cv2.matchTemplate(img1, img2, cv2.TM_CCOEFF_NORMED)
+
+    
     def position_inside_position(position_in, position_out):
         x_in,y_in,w_in,h_in = position_in
         x_out,y_out,w_out,h_out = position_out
@@ -118,6 +122,24 @@ class Image:
         height, width = target_img.shape[:2]
         
         return xloc[0], yloc[0], width, height
+
+    def get_max_result_between(targets:list, y_limits=None, x_limits=None, threshold:float=0):
+        index = 0
+        max_result = 0
+        for i, target in enumerate(targets):
+            screen = Image.screen()
+            if y_limits is not None:
+                screen= screen[y_limits[0]:y_limits[1], :]
+            if x_limits is not None:
+                x,w = x_limits
+                screen= screen[:, x:x+w]
+            result = cv2.matchTemplate(screen, Image.TARGETS[target], cv2.TM_CCOEFF_NORMED)
+            if result.max() > max_result:
+                max_result = result.max()
+                index = i
+        
+        return index
+
 
     def filter_by_green_bar(item):
         x,y,w,h = item

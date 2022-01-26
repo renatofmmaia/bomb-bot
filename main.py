@@ -59,10 +59,9 @@ def main(config_file):
                     terminal=False,
                 )
                 logger(
-                    "😬 Ohh no! A error has occurred in the last action. Check the log  file.",
+                    f"😬 Ohh no! A error has occurred in the last action.\n{e}\n Check the log  file for more details.",
                     color="yellow",
                 )
-
             sleep(5)
     except Exception:
         logger(traceback.format_exc(), color="red", force_log_file=True, terminal=False)

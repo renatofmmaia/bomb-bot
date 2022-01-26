@@ -49,10 +49,8 @@ class BombcryptoManager:
         
         return True
   
-    def set_logged(self, logged):
-        self.logged = logged
-        if logged:
-            self.refresh_login = time.time()
+    def set_logged(self):
+        self.refresh_login = time.time()
 
     def set_positions_refreshed(self):
         self.refresh_hunt = time.time()
