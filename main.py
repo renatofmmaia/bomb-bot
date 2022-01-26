@@ -5,6 +5,7 @@ from time import sleep
 import requests
 from packaging import version
 
+from module.bombScreen import BombScreen, BombScreenEnum
 from module.config import Config
 from module.image import Image
 from module.logger import logger, reset_log_file
@@ -48,11 +49,24 @@ def main(config_file):
 
         bomb_crypto_managers = create_bombcrypto_managers()
         logger(f"{len(bomb_crypto_managers)} Bombcrypto window (s) found")
+        bomb_browser_count = 1
+        show_initial_screen_message = True
         while True:
             try:
                 for manager in bomb_crypto_managers:
+                    current_screen = BombScreen.get_current_screen()
+                    
+                    if show_initial_screen_message:
+                        logger(f"💫 Bombcrypto window[{bomb_browser_count}] inicializado em: {BombScreenEnum(current_screen).name}")
+                    
                     with manager:
-                        manager.do_what_needs_to_be_done()
+                        manager.do_what_needs_to_be_done(current_screen)
+                    
+                    if bomb_browser_count == len(bomb_crypto_managers):
+                        bomb_browser_count = 1
+                        show_initial_screen_message = False
+                    else:
+                        bomb_browser_count += 1
             except Exception as e:
                 logger(
                     traceback.format_exc(),
