@@ -19,6 +19,7 @@ class BombcryptoManager:
         self.refresh_heroes = 0
         self.refresh_hunt = 0
         self.refresh_print_chest = 0
+        self.refresh_check_error = 0
 
     def __enter__(self):
         self.window.activate()
@@ -29,6 +30,10 @@ class BombcryptoManager:
         return
 
     def do_what_needs_to_be_done(self):
+        
+        refresh_check_error = Config.get('screen', 'refresh_check_error')*60
+        if (refresh_check_error and (now() - self.refresh_check_error > refresh_check_error)):
+            Hero.do_check_error(self)
             
         refresh_heroes=Config.get('screen', 'refresh_heroes')*60
         if (refresh_heroes and (now() - self.refresh_heroes > refresh_heroes)):
@@ -48,16 +53,7 @@ class BombcryptoManager:
                 BombScreen.do_print_chest(self)
         
         return True
-  
-    def set_logged(self):
-        self.refresh_login = time.time()
-
-    def set_positions_refreshed(self):
-        self.refresh_hunt = time.time()
     
-    def set_heroes_refreshed(self):
-        self.refresh_heroes = time.time()
-    
-    def set_print_chest_refreshed(self):
-        self.refresh_print_chest = time.time()
+    def set_refresh_timer(self, propertie_name):
+        setattr(self, propertie_name, time.time())
 

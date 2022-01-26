@@ -8,6 +8,7 @@ class LoggerEnum(Enum):
     BUTTON_CLICK = 1
     PAGE_FOUND = 2
     TIMER_REFRESH = 3
+    ERROR = 4
     
 
 COLOR = {
@@ -24,14 +25,19 @@ COLOR = {
 }
 
 
-def logger(message, color="default", force_log_file=False, terminal=True):
+def logger(message, color="default", force_log_file=False, terminal=True, datetime=True):
     color_formatted = COLOR.get(color.lower(), COLOR["default"])
     formatted_datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-    formatted_message = "[{}] => {}".format(formatted_datetime, message)
+    
+    if datetime:
+        formatted_message = "[{}] => {}".format(formatted_datetime, message)
+    else:
+        formatted_message = message
+        
     formatted_message_colored = color_formatted + formatted_message + "\033[0m"
     
     if terminal:
-        sys.stdout.write(color_formatted + ".")
+        sys.stdout.write(color_formatted)
         sys.stdout.flush()
         print(formatted_message_colored)
 
@@ -48,6 +54,8 @@ def logger_translated(text: str, loggerEnum: LoggerEnum):
         logger(f"🚩 {text} page detected.")
     elif loggerEnum.value == LoggerEnum.TIMER_REFRESH.value:
         logger(f"🍺 Refresh {text}.")
+    elif loggerEnum.value == LoggerEnum.ERROR.value:
+        logger(f"🆘 {text}.")
     
 def reset_log_file():
     file = open("./logs/logger.log","w")
