@@ -36,6 +36,7 @@ O uso de automação com bots ou auto clickers é liberado, conforme post abaixo
 - Abra um terminal, se for windows (aperte a tecla do windows + r e digite "cmd").
 - Navegue até a pasta onde o bot foi extraído, exemplo: cd "C:\bomb-bot".
 - Instale as dependências do bot executando o comando, sem aspas: "pip install -r requirements.txt".
+- **IMPORTANTE:** Seu navegador não pode estar com ZOOM, pois o bot usa reconhecimento de imagem e o tamanho e proporção dos objetos fazem diferença.
 - Abra seu navegador acesse o link: https://app.bombcrypto.io/webgl/index.html este link é oficial do bomb e abre a interface sem vários blocos de informação, para que a tela fique limpa para o reconhecimento de imagens do bot.
 - Faça o primeiro acesso na sua metamask, pois o bot realiza o login apenas se a mesma já estiver conectada.
 - Execute o bot executando o cmando, sem aspas: "python main.py"
