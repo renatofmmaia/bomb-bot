@@ -205,8 +205,14 @@ class Hero:
     def who_needs_work(manager):
         logger_translated(f"Heroes to work(config: {Config.get('hero','work_mod')}%)", LoggerEnum.ACTION)
              
-        heroes_bar = ["hero_bar_0", "hero_bar_20", "hero_bar_40", "hero_bar_60", "hero_bar_80", "hero_bar_100"]
-        scale_factor = 20
+        heroes_bar = [
+            "hero_bar_0", "hero_bar_10", "hero_bar_20",
+            "hero_bar_30", "hero_bar_40", "hero_bar_50",
+            "hero_bar_60", "hero_bar_70", "hero_bar_80",
+            "hero_bar_90", "hero_bar_100"
+            ]
+            
+        scale_factor = 10
 
         BombScreen.go_to_home(manager)
         BombScreen.go_to_heroes(manager)
