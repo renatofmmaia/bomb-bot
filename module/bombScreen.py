@@ -224,11 +224,14 @@ class Hero:
             n_clicks = 0
             screen_img = Image.screen()
             buttons_position = Image.get_target_positions("button_work_unchecked", not_target="button_work_checked", screen_image=screen_img)
+            x_buttons = buttons_position[0][0]
+            height, width = Image.TARGETS["hero_search_area"].shape[:2]
+            screen_img = screen_img[:,x_buttons-width:x_buttons, :]
             logger(f"Found {len(buttons_position)} Heroes resting:")
             log_msg = "    "
             for button_position in buttons_position:
                 x,y,w,h = button_position
-                search_img = screen_img[y:y+h+5, :, :]
+                search_img = screen_img[y:y+height, :, :]
 
                 life_max_values = [Image.get_compare_result(search_img, Image.TARGETS[bar]).max() for bar in heroes_bar]
                 life_index, life_max_value= 0, 0
