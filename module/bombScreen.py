@@ -212,7 +212,7 @@ class Hero:
             "hero_bar_90", "hero_bar_100"
             ]
         heroes_rarity = [
-            "hero_rarity_common", "hero_rarity_rare",
+            "hero_rarity_Common", "hero_rarity_Rare", "hero_rarity_SuperRare", "hero_rarity_Epic",
         ]
 
         scale_factor = 10
