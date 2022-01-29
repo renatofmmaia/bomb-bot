@@ -203,7 +203,7 @@ class Login:
 
 class Hero:
     def who_needs_work(manager):
-        logger_translated(f"Heroes to work(config: {Config.get('hero','work_mod')}%)", LoggerEnum.ACTION)
+        logger_translated(f"Heroes to work", LoggerEnum.ACTION)
              
         heroes_bar = [
             "hero_bar_0", "hero_bar_10", "hero_bar_20",
@@ -211,6 +211,9 @@ class Hero:
             "hero_bar_60", "hero_bar_70", "hero_bar_80",
             "hero_bar_90", "hero_bar_100"
             ]
+        heroes_rarity = [
+            "hero_rarity_common", "hero_rarity_rare",
+        ]
 
         scale_factor = 10
 
@@ -221,23 +224,30 @@ class Hero:
             n_clicks = 0
             screen_img = Image.screen()
             buttons_position = Image.get_target_positions("button_work_unchecked", not_target="button_work_checked", screen_image=screen_img)
-            logger(f"Found {len(buttons_position)} Heroes resting.")
-
+            logger(f"Found {len(buttons_position)} Heroes resting:")
+            log_msg = "    "
             for button_position in buttons_position:
                 x,y,w,h = button_position
                 search_img = screen_img[y:y+h+5, :, :]
-                compare_values = [Image.get_compare_result(search_img, Image.TARGETS[bar]).max() for bar in heroes_bar]
-                index, max_value= 0, 0
 
-                for i, value in enumerate(compare_values):
-                    index, max_value = (i, value) if value > max_value else (index, max_value)
-                logger(f"life: {index*scale_factor} %.")
-                if index*scale_factor >= Config.get('hero', 'work_mod'):
+                life_max_values = [Image.get_compare_result(search_img, Image.TARGETS[bar]).max() for bar in heroes_bar]
+                life_index, life_max_value= 0, 0
+                for i, value in enumerate(life_max_values):
+                    life_index, life_max_value = (i, value) if value > life_max_value else (life_index, life_max_value)
+
+                rarity_max_values = [Image.get_compare_result(search_img, Image.TARGETS[rarity]).max() for rarity in heroes_rarity]
+                rarity_index, rarity_max_value= 0, 0
+                for i, value in enumerate(rarity_max_values):
+                    rarity_index, rarity_max_value = (i, value) if value > rarity_max_value else (rarity_index, rarity_max_value)
+
+                hero_rarity = heroes_rarity[rarity_index].split("_")[-1]
+                log_msg =+ f"{hero_rarity}: {life_index*scale_factor} %;"
+                if life_index*scale_factor >= Config.get('heroes_work_mod', hero_rarity):
                     click_randomly_in_position(x,y,w,h)
                     n_clicks += 1
-            
-            logger(f"Detected {n_clicks} in fight conditions.")
-            
+
+            logger(log_msg)
+
             return n_clicks
 
         n_clicks_per_scrool = scroll_and_click_on_targets(
