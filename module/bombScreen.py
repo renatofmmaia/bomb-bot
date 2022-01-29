@@ -211,7 +211,7 @@ class Hero:
             "hero_bar_60", "hero_bar_70", "hero_bar_80",
             "hero_bar_90", "hero_bar_100"
             ]
-            
+
         scale_factor = 10
 
         BombScreen.go_to_home(manager)
@@ -221,7 +221,7 @@ class Hero:
             n_clicks = 0
             screen_img = Image.screen()
             buttons_position = Image.get_target_positions("button_work_unchecked", not_target="button_work_checked", screen_image=screen_img)
-            logger(f"{len(buttons_position)} Heroes found.")
+            logger(f"Found {len(buttons_position)} Heroes resting.")
 
             for button_position in buttons_position:
                 x,y,w,h = button_position
