@@ -223,12 +223,17 @@ class Hero:
         def click_available_heroes():
             n_clicks = 0
             screen_img = Image.screen()
+            
             buttons_position = Image.get_target_positions("button_work_unchecked", not_target="button_work_checked", screen_image=screen_img)
+            logger(f"👁️  Found {len(buttons_position)} Heroes resting:")
+            
+            if not buttons_position:
+                return 0
+
             x_buttons = buttons_position[0][0]
             height, width = Image.TARGETS["hero_search_area"].shape[:2]
             screen_img = screen_img[:,x_buttons-width:x_buttons, :]
-            logger(f"Found {len(buttons_position)} Heroes resting:")
-            log_msg = "    "
+            log_msg = "↳"
             for button_position in buttons_position:
                 x,y,w,h = button_position
                 search_img = screen_img[y:y+height, :, :]
@@ -244,13 +249,15 @@ class Hero:
                     rarity_index, rarity_max_value = (i, value) if value > rarity_max_value else (rarity_index, rarity_max_value)
 
                 hero_rarity = heroes_rarity[rarity_index].split("_")[-1]
-                log_msg =+ f"{hero_rarity}: {life_index*scale_factor} %;"
+                log_msg += f" {hero_rarity}: {life_index*scale_factor} % "
                 if life_index*scale_factor >= Config.get('heroes_work_mod', hero_rarity):
                     click_randomly_in_position(x,y,w,h)
                     n_clicks += 1
+                    log_msg += "💪;"
+                else:
+                    log_msg += "💤;"
 
             logger(log_msg)
-
             return n_clicks
 
         n_clicks_per_scrool = scroll_and_click_on_targets(
