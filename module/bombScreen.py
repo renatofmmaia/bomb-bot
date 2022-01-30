@@ -233,15 +233,10 @@ class Hero:
             x_buttons = buttons_position[0][0]
             height, width = Image.TARGETS["hero_search_area"].shape[:2]
             screen_img = screen_img[:,x_buttons-width:x_buttons, :]
-            log_msg = "↳"
+            logger("↳", end=" ", datetime=False)
             for button_position in buttons_position:
                 x,y,w,h = button_position
                 search_img = screen_img[y:y+height, :, :]
-
-                life_max_values = [Image.get_compare_result(search_img, Image.TARGETS[bar]).max() for bar in heroes_bar]
-                life_index, life_max_value= 0, 0
-                for i, value in enumerate(life_max_values):
-                    life_index, life_max_value = (i, value) if value > life_max_value else (life_index, life_max_value)
 
                 rarity_max_values = [Image.get_compare_result(search_img, Image.TARGETS[rarity]).max() for rarity in heroes_rarity]
                 rarity_index, rarity_max_value= 0, 0
@@ -249,15 +244,23 @@ class Hero:
                     rarity_index, rarity_max_value = (i, value) if value > rarity_max_value else (rarity_index, rarity_max_value)
 
                 hero_rarity = heroes_rarity[rarity_index].split("_")[-1]
-                log_msg += f" {hero_rarity}: {life_index*scale_factor} % "
+                logger(f"{hero_rarity}:", end=" ", datetime=False)
+
+                life_max_values = [Image.get_compare_result(search_img, Image.TARGETS[bar]).max() for bar in heroes_bar]
+                life_index, life_max_value= 0, 0
+                for i, value in enumerate(life_max_values):
+                    life_index, life_max_value = (i, value) if value > life_max_value else (life_index, life_max_value)
+
+
+                logger(f"{life_index*scale_factor}%", end=" ", datetime=False)
                 if life_index*scale_factor >= Config.get('heroes_work_mod', hero_rarity):
                     click_randomly_in_position(x,y,w,h)
                     n_clicks += 1
-                    log_msg += "💪;"
+                    logger("💪;", end=" ",datetime=False)
                 else:
-                    log_msg += "💤;"
+                    logger("💤;", end=" ", datetime=False)
 
-            logger(log_msg)
+            logger("", datetime=False)
             return n_clicks
 
         n_clicks_per_scrool = scroll_and_click_on_targets(
