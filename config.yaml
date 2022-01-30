@@ -50,16 +50,16 @@ screen:
 
   scroll_heroes:
     # total number of times the screen scrolls down
-    repeat: 5
+    repeat: 2
 
     # distance when scrolling down
-    distance: -200
+    distance: -375
 
     # duration of scrolling
     duration: 1 
 
-    # time waiting when scrolling down
-    wait: 1.5
+    # Wait time to stop scrolling before checking the heroes on the screen.
+    wait: 0.5
 
 telegram:
   # Settings for telegram integration 
