@@ -203,10 +203,19 @@ class Login:
 
 class Hero:
     def who_needs_work(manager):
-        logger_translated(f"Heroes to work(config: {Config.get('hero','work_mod')}%)", LoggerEnum.ACTION)
+        logger_translated(f"Heroes to work", LoggerEnum.ACTION)
              
-        heroes_bar = ["hero_bar_0", "hero_bar_20", "hero_bar_40", "hero_bar_60", "hero_bar_80", "hero_bar_100"]
-        scale_factor = 20
+        heroes_bar = [
+            "hero_bar_0", "hero_bar_10", "hero_bar_20",
+            "hero_bar_30", "hero_bar_40", "hero_bar_50",
+            "hero_bar_60", "hero_bar_70", "hero_bar_80",
+            "hero_bar_90", "hero_bar_100"
+            ]
+        heroes_rarity = [
+            "hero_rarity_Common", "hero_rarity_Rare", "hero_rarity_SuperRare", "hero_rarity_Epic",
+        ]
+
+        scale_factor = 10
 
         BombScreen.go_to_home(manager)
         BombScreen.go_to_heroes(manager)
@@ -214,24 +223,44 @@ class Hero:
         def click_available_heroes():
             n_clicks = 0
             screen_img = Image.screen()
+            
             buttons_position = Image.get_target_positions("button_work_unchecked", not_target="button_work_checked", screen_image=screen_img)
-            logger(f"{len(buttons_position)} Heroes found.")
+            logger(f"👁️  Found {len(buttons_position)} Heroes resting:")
+            
+            if not buttons_position:
+                return 0
 
+            x_buttons = buttons_position[0][0]
+            height, width = Image.TARGETS["hero_search_area"].shape[:2]
+            screen_img = screen_img[:,x_buttons-width:x_buttons, :]
+            logger("↳", end=" ", datetime=False)
             for button_position in buttons_position:
                 x,y,w,h = button_position
-                search_img = screen_img[y:y+h+5, :, :]
-                compare_values = [Image.get_compare_result(search_img, Image.TARGETS[bar]).max() for bar in heroes_bar]
-                index, max_value= 0, 0
+                search_img = screen_img[y:y+height, :, :]
 
-                for i, value in enumerate(compare_values):
-                    index, max_value = (i, value) if value > max_value else (index, max_value)
-                logger(f"life: {index*scale_factor} %.")
-                if index*scale_factor >= Config.get('hero', 'work_mod'):
+                rarity_max_values = [Image.get_compare_result(search_img, Image.TARGETS[rarity]).max() for rarity in heroes_rarity]
+                rarity_index, rarity_max_value= 0, 0
+                for i, value in enumerate(rarity_max_values):
+                    rarity_index, rarity_max_value = (i, value) if value > rarity_max_value else (rarity_index, rarity_max_value)
+
+                hero_rarity = heroes_rarity[rarity_index].split("_")[-1]
+                logger(f"{hero_rarity}:", end=" ", datetime=False)
+
+                life_max_values = [Image.get_compare_result(search_img, Image.TARGETS[bar]).max() for bar in heroes_bar]
+                life_index, life_max_value= 0, 0
+                for i, value in enumerate(life_max_values):
+                    life_index, life_max_value = (i, value) if value > life_max_value else (life_index, life_max_value)
+
+
+                logger(f"{life_index*scale_factor}%", end=" ", datetime=False)
+                if life_index*scale_factor >= Config.get('heroes_work_mod', hero_rarity):
                     click_randomly_in_position(x,y,w,h)
                     n_clicks += 1
-            
-            logger(f"Detected {n_clicks} in fight conditions.")
-            
+                    logger("💪;", end=" ",datetime=False)
+                else:
+                    logger("💤;", end=" ", datetime=False)
+
+            logger("", datetime=False)
             return n_clicks
 
         n_clicks_per_scrool = scroll_and_click_on_targets(
