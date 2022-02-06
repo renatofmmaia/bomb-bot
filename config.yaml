@@ -12,6 +12,7 @@ generals:
   # Which hotkey is used to refresh the browser
   #   1: CTRL + F5
   #   2: CTRL + SHIFT + R
+  refresh_page_shortcut: 2
   # Time format to show on logs:
   # Dafault: "%Y-%m-%d %H:%M:%S"
   time_format: "%Y-%m-%d %H:%M:%S"
