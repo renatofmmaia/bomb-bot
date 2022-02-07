@@ -2,7 +2,7 @@ generals:
   # Save all logs in file logs/logger.txt
   #   0: Don't save log
   #   1: Save log
-  save_log_file: 1
+  save_log_file: 0
   
   # Reset log file on start
   #   0: false
@@ -47,7 +47,7 @@ screen:
   # Chest photo type, for sending via Telegram
   #   true: The entire screen where the browser tab will be
   #   false: Just chest screen with your coins
-  print_full_screen: true
+  print_full_screen: false
 
   scroll_heroes:
     # total number of times the screen scrolls down
