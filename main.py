@@ -12,7 +12,7 @@ from module.logger import logger, reset_log_file
 from module.manager import create_bombcrypto_managers
 from module.telegram import TelegramBot
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 
 def main(config_file):
