@@ -56,6 +56,11 @@ O uso de automação com bots ou auto clickers é liberado, conforme post abaixo
 - Config.yaml que você tem que configurar
 - ![config trelegram](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/token_chat_id.png)
 
+### Possíveis soluções
+- (linux) Muitos problemas se rolvem ao atualizar o OS, pois os pacotes da instalação são basicos para o sistema rodar, para atualizar seu linux execute o comando: ***sudo apt updade && sudo apt upgrade -y
+- (linux) Se apresentar o erro "No module named 'tkinter'", execute o comando para instalar a interface grafica do python: ***sudo apt-get install python3-tk***
+- (linux) Caso seu linux não reconheca o comando pip ou pip3, será necessário instala-lo, através do comando: ***sudo apt install python3-pip***
+
 # Contato/Sugestão/Bug
 - Issues github: https://github.com/renatofmmaia/bomb-bot/issues/new
 
