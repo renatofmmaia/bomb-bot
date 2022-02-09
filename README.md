@@ -11,11 +11,11 @@ Smart Chain Wallet(BUSD/BNB/BCOIN)
 
 
 # Funcionalidades
+- Farm personalizado, defina a % que seus herois voltam a trabalhar, configurando por raridade e otimizando seu lucro :D
 - Multi Acc, logue a metamask de todas as suas contas, de play no bot e faça coisas melhores na sua vida do que ficar colocando heroes to work. :beers:
 - Integração com Telegram, receba uma print do seu baú a cada X minutos, o tempo é configuravel no arquivo config.yaml.
 - Anti-Broken, mesmo que aconteça um erro não tratado em tela, o bot força atualização da pagina e refaz o login, reiniciando o processo de farm, no pain yes gain!
 - Anti-bloco-Indestrutivel, o bot realiza atualização do navegador(CTRL+F5), reinicializando o farm, assim não te atrasando com os blocos que bugam, a função Refresh Login é configurada por tempo no arquivo config.yaml.
-- Heroes Green Bar, seleciona apenas herois com barra verde, otimizando o seu farm.
 - Arquivo de configuração, para que você mesmo determine como o bot deve funcionar (./config.yaml).
 
 # Automação com uso de bots no Bombcrypto é permitido?
