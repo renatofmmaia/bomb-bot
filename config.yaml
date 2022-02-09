@@ -14,8 +14,8 @@ generals:
   #   2: CTRL + SHIFT + R
   refresh_page_shortcut: 2
   # Time format to show on logs:
-  # Dafault: "%Y-%m-%d %H:%M:%S"
-  time_format: "%Y-%m-%d %H:%M:%S"
+  # Full date time: "%Y-%m-%d %H:%M:%S"
+  time_format: "%m-%d %H:%M"
 
 
 heroes_work_mod:
@@ -52,16 +52,16 @@ screen:
 
   scroll_heroes:
     # total number of times the screen scrolls down
-    repeat: 2
+    repeat: 3
 
     # distance when scrolling down
     distance: -375
 
     # duration of scrolling
-    duration: 1 
+    duration: 2 
 
     # Wait time to stop scrolling before checking the heroes on the screen.
-    wait: 0.5
+    wait: 1
 
 telegram:
   # Settings for telegram integration 
