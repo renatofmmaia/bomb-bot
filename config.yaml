@@ -26,7 +26,7 @@ heroes_work_mod:
   SuperRare: 30
   Epic: 30
   Legend: 30
-  # If you have Super Legend, send print to us.
+  SuperLegend: 30
 
 
 screen:
