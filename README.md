@@ -26,8 +26,7 @@ O uso de automação com bots ou auto clickers é liberado, conforme post abaixo
 ###  Requisitos:
 - Instalação do Python, instale pelo [site oficial](https://www.python.org/downloads/) ou pela [windows store](https://www.microsoft.com/p/python-37/9nj46sx7x90p?activetab=pivot:overviewtab) durante a instalação do python, não se esqueça de marcar a opção add Python to Path.
 - ![Path Python](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/python_path.png)
-- Realizar download do bot, clicando em Code -> Download Zip
-- ![download do bot](https://github.com/renatofmmaia/bomb-bot/blob/master/assets/infos_and_tutorial/bot_download.png)
+- Realizar download da ultima versão do bot em releases do repositorio github, clicando em https://github.com/renatofmmaia/bomb-bot/releases
 - Descompactar o bot na pasta em que desejar
 - (Linux) Instalar o pacote xdtools (responsável por retornar as janelas de navegador no linux) através do comando: sudo apt-get install xdotool
 - (Linux) Instalar pacote Scrot (responsável pela printscreen no linux) através do comando: sudo apt-get install scrot
@@ -58,7 +57,7 @@ O uso de automação com bots ou auto clickers é liberado, conforme post abaixo
 
 ### Possíveis soluções
 - (linux) Muitos problemas se rolvem ao atualizar o OS, pois os pacotes da instalação são basicos para o sistema rodar, para atualizar seu linux execute o comando: ***sudo apt updade && sudo apt upgrade -y***
-- (linux) Se apresentar o erro "No module named 'tkinter'", execute o comando para instalar a interface grafica do python: ***sudo apt-get install python3-tk***
+- (linux) Se apresentar o erro "No module named 'tkinter'", execute o comando para instalar a interface grafica do python: ***sudo apt install python3-tk***
 - (linux) Caso seu linux não reconheca o comando pip ou pip3, será necessário instala-lo, através do comando: ***sudo apt install python3-pip***
 
 # Contato/Sugestão/Bug
