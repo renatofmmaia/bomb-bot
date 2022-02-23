@@ -80,8 +80,8 @@ class BombScreen:
 
         return screen_name if max_value > Config.get("threshold", "default") else -1
 
-    def go_to_home(manager):
-        current_screen = BombScreen.get_current_screen()
+    def go_to_home(manager, current_screen = None):
+        current_screen = BombScreen.get_current_screen() if current_screen == None else current_screen
         if current_screen == BombScreenEnum.HOME.value:
             return
         elif current_screen == BombScreenEnum.TREASURE_HUNT.value:
@@ -97,8 +97,8 @@ class BombScreen:
 
         BombScreen.wait_for_screen(BombScreenEnum.HOME.value)
 
-    def go_to_heroes(manager):
-        current_screen = BombScreen.get_current_screen()
+    def go_to_heroes(manager, current_screen = None):
+        current_screen = BombScreen.get_current_screen() if current_screen == None else current_screen
         
         if current_screen == BombScreenEnum.HOME.value:
             click_when_target_appears("button_heroes")
@@ -183,6 +183,11 @@ class Login:
                 if not click_when_target_appears("button_connect_wallet"):
                     refresh_page()
                     continue
+                
+                logger_translated("connect with metamask", LoggerEnum.BUTTON_CLICK)
+                if not click_when_target_appears("button_connect_metamask"):
+                    refresh_page()
+                    continue
 
                 logger_translated("sigin wallet", LoggerEnum.BUTTON_CLICK)
                 if not click_when_target_appears("button_connect_wallet_sign"):
@@ -217,8 +222,10 @@ class Hero:
 
         scale_factor = 10
 
-        BombScreen.go_to_home(manager)
-        BombScreen.go_to_heroes(manager)
+        current_screen = BombScreen.get_current_screen()
+        BombScreen.go_to_home(manager, current_screen)
+        current_screen = BombScreenEnum.HOME.value
+        BombScreen.go_to_heroes(manager, current_screen)
         
         def click_available_heroes():
             n_clicks = 0
@@ -232,7 +239,7 @@ class Hero:
 
             x_buttons = buttons_position[0][0]
             height, width = Image.TARGETS["hero_search_area"].shape[:2]
-            screen_img = screen_img[:,x_buttons-width:x_buttons, :]
+            screen_img = screen_img[:,x_buttons-width-Image.MONITOR_LEFT:x_buttons - Image.MONITOR_LEFT, :]
             logger("↳", end=" ", datetime=False)
             for button_position in buttons_position:
                 x,y,w,h = button_position
