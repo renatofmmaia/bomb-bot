@@ -1,5 +1,5 @@
 ### Custom ###
-
+.DS_Store
 test.py
 logs/*
 config_profiles/*
