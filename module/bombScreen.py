@@ -197,7 +197,7 @@ class Login:
                         refresh_page()
                         continue
                 else:
-                    logger_translated("logging in with username and password", LoggerEnum.BUTTON_CLICK)
+                    logger_translated("login", LoggerEnum.BUTTON_CLICK)
                     if not click_when_target_appears("button_login"):
                         refresh_page()
                         continue
