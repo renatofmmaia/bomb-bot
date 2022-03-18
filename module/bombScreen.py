@@ -170,7 +170,9 @@ class Login:
             logger_translated("login", LoggerEnum.ACTION)
 
             login_attepmts = Config.PROPERTIES["screen"]["number_login_attempts"]
-        
+            
+            login_with_metamask = Config.get("metamask", "login_with_metamask")
+
             for i in range(login_attepmts):
                 
                 if BombScreen.get_current_screen() != BombScreenEnum.LOGIN.value:
@@ -184,15 +186,21 @@ class Login:
                     refresh_page()
                     continue
                 
-                logger_translated("connect with metamask", LoggerEnum.BUTTON_CLICK)
-                if not click_when_target_appears("button_connect_metamask"):
-                    refresh_page()
-                    continue
+                if login_with_metamask:    
+                    logger_translated("connect with metamask", LoggerEnum.BUTTON_CLICK)
+                    if not click_when_target_appears("button_connect_metamask"):
+                        refresh_page()
+                        continue
 
-                logger_translated("sigin wallet", LoggerEnum.BUTTON_CLICK)
-                if not click_when_target_appears("button_connect_wallet_sign"):
-                    refresh_page()
-                    continue
+                    logger_translated("sigin wallet", LoggerEnum.BUTTON_CLICK)
+                    if not click_when_target_appears("button_connect_wallet_sign"):
+                        refresh_page()
+                        continue
+                else:
+                    logger_translated("logging in with username and password", LoggerEnum.BUTTON_CLICK)
+                    if not click_when_target_appears("button_login"):
+                        refresh_page()
+                        continue
 
                 if (BombScreen.wait_for_screen(BombScreenEnum.HOME.value) != BombScreenEnum.HOME.value):
                     logger("🚫 Failed to login, restart proccess...")
