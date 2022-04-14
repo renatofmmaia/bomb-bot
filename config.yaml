@@ -75,7 +75,7 @@ metamask:
   # Login configuration
   #   true: login with Metamask
   #   false: login without Metamask
-  login_with_metamask: true
+  login_with_metamask: false
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 # DONT CHANGE THIS CONFIGS
