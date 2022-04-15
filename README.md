@@ -41,6 +41,11 @@ O uso de automação com bots ou auto clickers é liberado, conforme post abaixo
 - Execute o bot executando o cmando, sem aspas: "python main.py"
 - Enjoy the moment :D
 
+###  Configurando login sem Metamask:
+- Você deverá fazer o primeiro login com seu usuário e senha, pois ficará gravado no game e não será necessário digitar novamente
+- Acesse o arquivo de configuração, config.yaml
+- Na área "metamask", "login_with_metamask" estará como true, troque para false, exemplo "login_with_metamask: false"
+
 ###  Configurando Telegram
 - Em seu telegram, iniciei uma conversa com @BotFather
 - Clique em Start, e quando abrir as opções, clique em "/newbot"
